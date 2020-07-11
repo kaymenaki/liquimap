@@ -29,6 +29,8 @@
 	[%}%]
 	</tr>
 	
+	[%if (isLayerActive("departments")){%]
+		
 	[%for (department in Department.all) { %]
 	<tr>
 		<td>
@@ -44,6 +46,20 @@
 	</tr>
 	[%}%]
 	
+	[%}%]
+	
 </table>
 </body>
 </html>
+
+[%
+operation isLayerActive(id : String) {
+	var layer = layers.selectOne(l|l.id = id);
+	if (layer.isDefined()) {
+		return layer.active;
+	}
+	else {
+		return true;
+	}
+}
+%]

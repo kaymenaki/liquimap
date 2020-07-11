@@ -5,6 +5,24 @@ rule Blueprint2HTML
 
 	parameters : Map {
 		"path" = Sequence{"Liquimap", b.name},
+		"format" = "html",
+		"layers" = Sequence {
+			Map{
+				"title" = "Departments",
+				"id" = "departments"
+			}
+		}
+	}
+	
+}
+
+rule Blueprint2Sankey 
+	transform b : Blueprint {
+
+	template : "blueprint2sankey.egl"
+
+	parameters : Map {
+		"path" = Sequence{"Liquimap", "Sankey"},
 		"format" = "html"
 	}
 	

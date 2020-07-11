@@ -1,5 +1,4 @@
 <?nsuri liquimap?>
-<!--?render-graphviz-dot platform:/resource/org.eclipse.epsilon.examples.picto.objectdiagram/objectdiagram.egl?-->
 <?render-egx liquimap.egx?>
 <blueprint name="Shop shoes">
 	<stage name="Awareness">
