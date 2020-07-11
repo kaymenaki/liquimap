@@ -1,0 +1,31 @@
+// Emfatic - https://www.eclipse.org/emfatic/
+package liquimap;
+
+class Blueprint{
+	attr String name;
+	val Stage[*] stages;
+	val Department[*] departments;
+}
+
+class Stage {
+	attr String name;
+	attr String colour;
+	// val because deleting a stage should also delete
+	// all the steps it contains
+	val Step[*] steps;
+}
+
+class Step {
+	attr String name;
+	val Touchpoint[*] touchpoints;
+}
+
+class Touchpoint {
+	attr String name;
+	ref Department[*] departments;
+}
+
+class Department {
+	id attr String ~id;
+	attr String name;
+}

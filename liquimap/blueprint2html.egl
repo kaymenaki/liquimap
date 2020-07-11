@@ -1,0 +1,49 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+
+<body>
+<table class="table table-striped">
+	<!--Stages row-->
+	<tr>
+	<td>Stages</td>
+	[%for (stage in Stage.all) { %]
+	<td colspan="[%=stage.steps.touchpoints.flatten().size()%]">[%=stage.name%]</td>
+	[%}%]
+	</tr>
+	
+	<!--Steps row-->
+	<tr>
+	<td>Steps</td>
+	[%for (step in Step.all) { %]
+	<td colspan="[%=step.touchpoints.size()%]">[%=step.name%]</td>
+	[%}%]
+	</tr>
+
+	<!--Touchpoints row-->
+	<tr>
+	<td>Touchpoints</td>
+	[%for (touchpoint in Touchpoint.all) { %]
+	<td>[%=touchpoint.name%]</td>
+	[%}%]
+	</tr>
+	
+	[%for (department in Department.all) { %]
+	<tr>
+		<td>
+			<a href="javascript:showView(['Liquimap','Departments','[%=department.name%]'])">
+				[%=department.name%]
+			</a>
+		</td>
+		[%for (touchpoint in Touchpoint.all) { %]
+		<td>
+		[%if (touchpoint.departments.includes(department)){%]x[%}%]
+		</td>
+		[%}%]
+	</tr>
+	[%}%]
+	
+</table>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<table border="1">
+	
+	<!--Steps row-->
+	<tr>
+	<td>Steps</td>
+	[%for (step in stage.steps) { %]
+	<td colspan="[%=step.touchpoints.size()%]">[%=step.name%]</td>
+	[%}%]
+	</tr>
+
+	<!--Touchpoints row-->
+	<tr>
+	<td>Touchpoints</td>
+	[%for (touchpoint in stage.steps.touchpoints.flatten()) { %]
+	<td>[%=touchpoint.name%]</td>
+	[%}%]
+	</tr>
+	
+	[%for (department in getVisibleDepartments()) { %]
+	<tr>
+		<td>[%=department.name%]</td>
+		[%for (touchpoint in stage.steps.touchpoints.flatten()) { %]
+		<td>
+		[%if (touchpoint.departments.includes(department)){%]x[%}%]
+		</td>
+		[%}%]
+	</tr>
+	[%}%]
+	
+</table>
+
+[%
+
+operation getVisibleDepartments() {
+	
+	return Department.all.select(d|
+		stage.steps.touchpoints.flatten().departments.flatten().includes(d));
+	
+}
+
+%]

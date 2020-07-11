@@ -1,0 +1,35 @@
+rule Blueprint2HTML 
+	transform b : Blueprint {
+
+	template : "blueprint2html.egl"
+
+	parameters : Map {
+		"path" = Sequence{"Liquimap", b.name},
+		"format" = "html"
+	}
+	
+}
+
+rule Department2HTML
+	transform d : Department {
+	
+	template : "department2html.egl"
+	
+	parameters : Map {
+		"path" = Sequence{"Liquimap", "Departments", d.name},
+		"format" = "html"
+	}
+	
+}
+
+rule Stage2HTML
+	transform stage : Stage {
+	
+	template : "stage2html.egl"
+	
+	parameters : Map {
+		"path" = Sequence{"Liquimap", "Stages", stage.name},
+		"format" = "html"
+	}
+	
+}

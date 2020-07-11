@@ -1,0 +1,24 @@
+<?nsuri liquimap?>
+<!--?render-graphviz-dot platform:/resource/org.eclipse.epsilon.examples.picto.objectdiagram/objectdiagram.egl?-->
+<?render-egx liquimap.egx?>
+<blueprint name="Shop shoes">
+	<stage name="Awareness">
+		<step name="Wants to buy new shoes">
+			<touchpoint name="Ads" departments="marketing"/>
+			<touchpoint name="e-Shop" departments="marketing, eshop"/>
+		</step>
+		<step name="Clicks ad on landing page">
+			<touchpoint name="Blog" departments="marketing"/>
+		</step>
+	</stage>
+	<stage name="Consideration">
+		<step name="Visits e-Shop">
+			<touchpoint name="Landing Page" departments="marketing, design"/>
+			<touchpoint name="Form" departments="marketing"/>
+			<touchpoint name="Product Page" deps="design"/>
+		</step>
+	</stage>
+	<department name="Marketing/Online Marketing" id="marketing"/>
+	<department name="e-Shop Management" id="eshop"/>
+	<department name="Design" id="design"/>
+</blueprint>
