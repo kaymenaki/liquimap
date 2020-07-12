@@ -26,17 +26,15 @@
 	<tr>
 	<td class="header">Touchpoints</td>
 	[%for (touchpoint in Touchpoint.all) { %]
-	<td class="touchpoint" style="color:[%=touchpoint.eContainer().eContainer().colour%]">[%=touchpoint.name%]</td>
+	[%var c=touchpoint.eContainer().eContainer().colour;%]
+	<td class="touchpoint" style="color:[%=c%]; border-color:[%=c%] [%if(loopCount=1){%];border-left: 2px solid;[%}%]">[%=touchpoint.name%]</td>
 	[%}%]
 	</tr>
 	
 	[%if (isLayerActive("departments")){%]
 	
-	<tr>
-		<td class="header">Departments</td>
-	</tr>
-	
 	[%for (department in Department.all) { %]
+	[%var lastDepartment = not hasMore;%]
 	<tr>
 		<td class="department">
 			<a href="javascript:showView(['Liquimap','Departments','[%=department.name%]'])">
@@ -44,7 +42,8 @@
 			</a>
 		</td>
 		[%for (touchpoint in Touchpoint.all) { %]
-		<td class="touchpointinstance" style="color:[%=touchpoint.eContainer().eContainer().colour%]">
+		[%var c=touchpoint.eContainer().eContainer().colour;%]
+		<td class="touchpointinstance" style="color:[%=c%]; border-color:[%=c%] [%if(loopCount=1){%];border-left: 2px solid;[%}%]  [%if(lastDepartment){%];border-bottom: 2px solid;[%}%]">
 		[%if (touchpoint.departments.includes(department)){%]&#9900;[%}%]
 		</td>
 		[%}%]

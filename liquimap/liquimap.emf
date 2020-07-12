@@ -59,6 +59,7 @@ class Action extends ExperienceMapNode {
 	attr String[*] opportunities;
 	attr String comments;
 	ref Touchpoint touchpoint;
+	attr String colour;
 }
 
 class Decision extends ExperienceMapNode {

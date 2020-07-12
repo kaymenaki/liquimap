@@ -9,26 +9,41 @@ body {
 	text-transform: uppercase;
 }
 
+table {
+	border-spacing: 0px;
+}
+
 .stage {
 	padding: 15px;
 	color: white;
-	font-size:140%
+	font-size:140%;
+	text-transform: uppercase;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	border-spacing: 10px;
 }
 
 .step {
 	padding: 15px 10px;
 	color: white;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	margin-bottom: 5px;
 }
 
 .touchpoint {
 	padding: 5px;
 	text-align: center;
+	border-right: 2px solid;
+	border-top: 2px solid;
+	border-bottom: 2px solid;
 }
 
 .touchpointinstance {
 	font-weight: bold;
 	text-align: center;
 	font-size:150%;
+	border-right: 2px solid;
 }
 
 .department {
@@ -38,4 +53,11 @@ body {
 a {
 	text-decoration: none;
 	color: #333333
+}
+
+.action {
+	padding: 5px;
+	color: white;
+	font-size:80%;
+	text-transform: uppercase;
 }

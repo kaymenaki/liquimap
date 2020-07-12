@@ -24,7 +24,7 @@
 </blueprint>
 
 <experiencemap name="Shop shoes">
-	<action name="Arrives at langing page" id="a1" image="images/image1.png">
+	<action name="Arrives at langing page" id="a1" image="images/image1.png" color="rgb(0, 80, 93)">
 		<gain>Page loads fast</gain>
 		<pain>Page looks terrible</pain>
 		<emotion>3</emotion>
@@ -34,11 +34,11 @@
 	</action>
 	<transition from="a1" to="d1"/>
 	<decision name="Man or woman?" id="d1"/>
-	<action name="Visit mens page" id="a2" image="images/image1.png"/>
-	<action name="Visit womens page" id="a3" image="images/image1.png"/>
+	<action name="Visit mens page" id="a2" image="images/image1.png" color="rgb(0, 80, 93)"/>
+	<action name="Visit womens page" id="a3" image="images/image1.png" color="rgb(0, 80, 93)"/>
 	<transition from="d1" to="a2" name="man" id="t1"/>
 	<transition from="d1" to="a3" name="woman" id="t2"/>
-	<action name="Check out" id="a4" image="images/image1.png"/>
+	<action name="Check out" id="a4" image="images/image1.png" color="rgb(0, 80, 93)"/>
 	<transition from="a2" to="a4"/>
 	<transition from="a3" to="a4"/>
 	

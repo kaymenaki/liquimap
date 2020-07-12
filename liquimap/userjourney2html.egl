@@ -1,3 +1,10 @@
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel="stylesheet" href="file:[%=getImage("liquimap.css") + "?" + 1.to(10000).random()%]"/>
+</head>
+
+<body>
 [%var actions = journey.getActions();%]
 
 <b>Expectations:</b> [%=journey.expectations%]
@@ -6,7 +13,7 @@
 	<tr>
 		<td> </td>
 		[%for (action in actions) { %]
-			<td>[%=action.name%]</td>
+			<td class="action" style="background-color: [%=action.colour%]">[%=action.name%]</td>
 		[%}%]
 	</tr>
 	
@@ -18,21 +25,21 @@
 	</tr>
 	
 	<tr>
-		<td>Mood</td>
+		<td class="header">Mood</td>
 		[%for (action in actions) { %]
 			<td>[%=action.mood%]</td>
 		[%}%]
 	</tr>
 
 	<tr>
-		<td>Emotion</td>
+		<td class="header">Emotion</td>
 		[%for (action in actions) { %]
 			<td>[%=action.emotion%]</td>
 		[%}%]
 	</tr>
 	
 	<tr>
-		<td>Pains and Gains</td>
+		<td class="header">Pains and Gains</td>
 		[%for (action in actions) { %]
 			<td>
 			[%if (not action.pains.isEmpty()){%]
@@ -57,7 +64,7 @@
 	</tr>
 	
 	<tr>
-		<td>Opportunities</td>
+		<td class="header">Opportunities</td>
 		[%for (action in actions) { %]
 			<td>
 			<ul>
@@ -70,7 +77,7 @@
 	</tr>
 	
 	<tr>
-		<td>Comments</td>
+		<td class="header">Comments</td>
 		[%for (action in actions) { %]
 			<td>
 			[%=action.comments%]
@@ -79,6 +86,8 @@
 	</tr>
 	
 </table>
+</body>
+</html>
 
 [%
 operation UserJourney getActions() {
