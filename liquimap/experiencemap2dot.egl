@@ -1,0 +1,47 @@
+digraph G {
+	node[shape=record, fontname=Tahoma, fontsize=10, style=filled, fillcolor=azure]
+	edge[fontname=Tahoma, fontsize=10, fontcolor=grey]
+	rankdir=LR;
+	
+	[%for (node in map.nodes) { %]
+	[%=node.getNodeId()%] [label="[%=node.getLabel()%]" shape="[%=node.getShape()%]" fillcolor="[%=node.getFillColor()%]"];
+	[%}%]
+	
+	[%for (transition in map.transitions) { %]
+	[%=transition.from.getNodeId()%] -> [%=transition.to.getNodeId()%] [label="[%=transition.name%]"];
+	[%}%]
+	
+}
+
+[%
+operation ExperienceMapNode getNodeId() {
+	return "Node" + self.eContainer().nodes.indexOf(self);
+}
+
+operation ExperienceMapNode getShape() {
+	if (self.isTypeOf(Decision)) {
+		return "diamond";
+	}
+	else {
+		return "box";
+	}
+}
+
+operation ExperienceMapNode getLabel() {
+	if (self.isTypeOf(Decision)) {
+		return "";
+	}
+	else {
+		return self.name;
+	}
+}
+
+operation ExperienceMapNode getFillColor() {
+	if (self.isTypeOf(Decision)) {
+		return "wheat";
+	}
+	else {
+		return "azure";
+	}
+}
+%]

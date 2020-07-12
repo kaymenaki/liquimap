@@ -1,5 +1,6 @@
 <?nsuri liquimap?>
 <?render-egx liquimap.egx?>
+<_>
 <blueprint name="Shop shoes">
 	<stage name="Awareness">
 		<step name="Wants to buy new shoes">
@@ -21,3 +22,18 @@
 	<department name="e-Shop Management" id="eshop"/>
 	<department name="Design" id="design"/>
 </blueprint>
+
+<experiencemap name="Shop shoes">
+	<action name="Arrives at langing page" id="a1"/>
+	<transition from="a1" to="d1"/>
+	<decision name="Man or woman?" id="d1"/>
+	<action name="Visit mens page" id="a2"/>
+	<action name="Visit womens page" id="a3"/>
+	<transition from="d1" to="a2" name="man"/>
+	<transition from="d1" to="a3" name="woman"/>
+	<action name="Check out" id="a4"/>
+	<transition from="a2" to="a4"/>
+	<transition from="a3" to="a4"/>
+</experiencemap>
+
+</_>

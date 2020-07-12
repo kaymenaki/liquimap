@@ -1,6 +1,8 @@
 // Emfatic - https://www.eclipse.org/emfatic/
 package liquimap;
 
+// Blueprint-related part of the language
+
 class Blueprint{
 	attr String name;
 	val Stage[*] stages;
@@ -21,6 +23,7 @@ class Step {
 }
 
 class Touchpoint {
+	id attr String ~id;
 	attr String name;
 	ref Department[*] departments;
 }
@@ -28,4 +31,33 @@ class Touchpoint {
 class Department {
 	id attr String ~id;
 	attr String name;
+}
+
+// Experience map-related part of the language
+
+class ExperienceMap {
+	attr String name;
+	val ExperienceMapNode[*] nodes;
+	val Transition[*] transitions;
+}
+
+abstract class ExperienceMapNode {
+	id attr String ~id;
+	attr String name;
+	ref Transition[*]#from outgoing;
+	ref Transition[*]#to incoming;
+}
+
+class Action extends ExperienceMapNode {
+	ref Touchpoint touchpoint;
+}
+
+class Decision extends ExperienceMapNode {
+	
+}
+
+class Transition {
+	attr String name;
+	ref ExperienceMapNode#outgoing from;
+	ref ExperienceMapNode#incoming to;
 }
