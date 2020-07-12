@@ -1,5 +1,5 @@
 digraph G {
-	node[shape=record, fontname=Tahoma, fontsize=10, style=filled, fillcolor=azure]
+	node[shape=record, fontname=Tahoma, fontsize=10, style=filled, fillcolor=azure, gradientangle="270"]
 	edge[fontname=Tahoma, fontsize=10, fontcolor=grey]
 	rankdir=LR;
 	
@@ -38,7 +38,7 @@ operation ExperienceMapNode getLabel() {
 
 operation ExperienceMapNode getFillColor() {
 	if (self.isTypeOf(Decision)) {
-		return "wheat";
+		return "wheat:white";
 	}
 	else {
 		return "azure";

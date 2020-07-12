@@ -2,7 +2,7 @@
 <?render-egx liquimap.egx?>
 <_>
 <blueprint name="Shop shoes">
-	<stage name="Awareness">
+	<stage name="Awareness" colour="rgb(0, 80, 93)">
 		<step name="Wants to buy new shoes">
 			<touchpoint name="Ads" departments="marketing"/>
 			<touchpoint name="e-Shop" departments="marketing, eshop"/>
@@ -11,7 +11,7 @@
 			<touchpoint name="Blog" departments="marketing"/>
 		</step>
 	</stage>
-	<stage name="Consideration">
+	<stage name="Consideration" colour="rgb(78, 132, 154)">
 		<step name="Visits e-Shop">
 			<touchpoint name="Landing Page" departments="marketing, design"/>
 			<touchpoint name="Form" departments="marketing"/>

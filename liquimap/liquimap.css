@@ -1,3 +1,41 @@
 body {
-	background-color:red;
+  font: 40px;
+  color: #333333;
+  font-family: 'Roboto';
+}
+
+.header {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.stage {
+	padding: 15px;
+	color: white;
+	font-size:140%
+}
+
+.step {
+	padding: 15px 10px;
+	color: white;
+}
+
+.touchpoint {
+	padding: 5px;
+	text-align: center;
+}
+
+.touchpointinstance {
+	font-weight: bold;
+	text-align: center;
+	font-size:150%;
+}
+
+.department {
+	font-size: 80%;
+}
+
+a {
+	text-decoration: none;
+	color: #333333
 }

@@ -1,46 +1,51 @@
 <html>
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel="stylesheet" href="file:[%=getImage("liquimap.css") + "?" + 1.to(10000).random()%]"/>
 </head>
 
 <body>
-<table class="table table-striped">
+<table>
 	<!--Stages row-->
 	<tr>
-	<td>Stages</td>
+	<td class="header">Stages</td>
 	[%for (stage in Stage.all) { %]
-	<td colspan="[%=stage.steps.touchpoints.flatten().size()%]">[%=stage.name%]</td>
+	<td colspan="[%=stage.steps.touchpoints.flatten().size()%]" class="stage" style="background-color:[%=stage.colour%]">[%=stage.name%]</td>
 	[%}%]
 	</tr>
 	
 	<!--Steps row-->
 	<tr>
-	<td>Steps</td>
+	<td class="header">Steps</td>
 	[%for (step in Step.all) { %]
-	<td colspan="[%=step.touchpoints.size()%]">[%=step.name%]</td>
+	<td colspan="[%=step.touchpoints.size()%]" class="step" style="background-color:[%=step.eContainer().colour%]">[%=step.name%]</td>
 	[%}%]
 	</tr>
 
 	<!--Touchpoints row-->
 	<tr>
-	<td>Touchpoints</td>
+	<td class="header">Touchpoints</td>
 	[%for (touchpoint in Touchpoint.all) { %]
-	<td>[%=touchpoint.name%]</td>
+	<td class="touchpoint" style="color:[%=touchpoint.eContainer().eContainer().colour%]">[%=touchpoint.name%]</td>
 	[%}%]
 	</tr>
 	
 	[%if (isLayerActive("departments")){%]
-		
+	
+	<tr>
+		<td class="header">Departments</td>
+	</tr>
+	
 	[%for (department in Department.all) { %]
 	<tr>
-		<td>
+		<td class="department">
 			<a href="javascript:showView(['Liquimap','Departments','[%=department.name%]'])">
 				[%=department.name%]
 			</a>
 		</td>
 		[%for (touchpoint in Touchpoint.all) { %]
-		<td>
-		[%if (touchpoint.departments.includes(department)){%]x[%}%]
+		<td class="touchpointinstance" style="color:[%=touchpoint.eContainer().eContainer().colour%]">
+		[%if (touchpoint.departments.includes(department)){%]&#9900;[%}%]
 		</td>
 		[%}%]
 	</tr>
