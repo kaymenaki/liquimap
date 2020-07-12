@@ -1,0 +1,108 @@
+[%var actions = journey.getActions();%]
+
+<b>Expectations:</b> [%=journey.expectations%]
+
+<table border="1">
+	<tr>
+		<td> </td>
+		[%for (action in actions) { %]
+			<td>[%=action.name%]</td>
+		[%}%]
+	</tr>
+	
+	<tr>
+		<td> </td>
+		[%for (action in actions) { %]
+			<td><img src="[%=getImage(action.image)%]" style="width:200px"></td>
+		[%}%]
+	</tr>
+	
+	<tr>
+		<td>Mood</td>
+		[%for (action in actions) { %]
+			<td>[%=action.mood%]</td>
+		[%}%]
+	</tr>
+
+	<tr>
+		<td>Emotion</td>
+		[%for (action in actions) { %]
+			<td>[%=action.emotion%]</td>
+		[%}%]
+	</tr>
+	
+	<tr>
+		<td>Pains and Gains</td>
+		[%for (action in actions) { %]
+			<td>
+			[%if (not action.pains.isEmpty()){%]
+			<b>Pains</b>
+			<ul>
+				[%for (pain in action.pains){%]
+				<li>[%=pain%]</li>
+				[%}%]
+			</ul>
+			[%}%]
+			
+			[%if (not action.gains.isEmpty()){%]
+			<b>Gains</b>
+			<ul>
+				[%for (gain in action.gains){%]
+				<li>[%=gain%]</li>
+				[%}%]
+			</ul>
+			[%}%]
+			</td>
+		[%}%]
+	</tr>
+	
+	<tr>
+		<td>Opportunities</td>
+		[%for (action in actions) { %]
+			<td>
+			<ul>
+				[%for (opportunity in action.opportunities){%]
+				<li>[%=opportunity%]</li>
+				[%}%]
+			</ul>
+			</td>
+		[%}%]
+	</tr>
+	
+	<tr>
+		<td>Comments</td>
+		[%for (action in actions) { %]
+			<td>
+			[%=action.comments%]
+			</td>
+		[%}%]
+	</tr>
+	
+</table>
+
+[%
+operation UserJourney getActions() {
+	
+	var start = self.eContainer().nodes.selectOne(n|n.incoming.isEmpty());
+	var actions : Sequence;
+	
+	if (start == null) return actions;
+	actions.add(start);
+	
+	while (not start.outgoing.isEmpty()) {
+		if (start.isTypeOf(Action)) {
+			start = start.outgoing.first().to;
+			if (actions.contains(start)) return actions;
+			actions.add(start);
+		}
+		else {
+			start = start.outgoing.selectOne(t|self.choices.includes(t)).to;
+			if (actions.contains(start)) return actions;
+			actions.add(start);
+		}
+	}
+	
+	return actions.select(a|a.isTypeOf(Action));
+	
+}
+%]

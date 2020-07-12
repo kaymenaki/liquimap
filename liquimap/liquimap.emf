@@ -36,9 +36,11 @@ class Department {
 // Experience map-related part of the language
 
 class ExperienceMap {
+	id attr String ~id;
 	attr String name;
 	val ExperienceMapNode[*] nodes;
 	val Transition[*] transitions;
+	val UserJourney[*] journeys;
 }
 
 abstract class ExperienceMapNode {
@@ -49,6 +51,13 @@ abstract class ExperienceMapNode {
 }
 
 class Action extends ExperienceMapNode {
+	attr int emotion;
+	attr String mood;
+	attr String image;
+	attr String[*] pains;
+	attr String[*] gains;
+	attr String[*] opportunities;
+	attr String comments;
 	ref Touchpoint touchpoint;
 }
 
@@ -57,7 +66,19 @@ class Decision extends ExperienceMapNode {
 }
 
 class Transition {
+	id attr String ~id;
 	attr String name;
 	ref ExperienceMapNode#outgoing from;
 	ref ExperienceMapNode#incoming to;
 }
+
+// User journey-related part of the language
+
+class UserJourney {
+	attr String name;
+	attr String scenario;
+	attr String expectations;
+	ref Transition[*] choices;
+}
+
+

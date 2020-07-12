@@ -4,7 +4,7 @@ rule Blueprint2HTML
 	template : "blueprint2html.egl"
 
 	parameters : Map {
-		"path" = Sequence{"Liquimap", b.name},
+		"path" = Sequence{"Liquimap", "Blueprints", b.name},
 		"format" = "html",
 		"layers" = Sequence {
 			Map{
@@ -22,7 +22,7 @@ rule Blueprint2Sankey
 	template : "blueprint2sankey.egl"
 
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Sankey"},
+		"path" = Sequence{"Liquimap", "Blueprints", b.name, "Sankey"},
 		"format" = "html"
 	}
 	
@@ -46,7 +46,7 @@ rule Stage2HTML
 	template : "stage2html.egl"
 	
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Stages", stage.name},
+		"path" = Sequence{"Liquimap", "Blueprints", stage.eContainer().name, "Stages", stage.name},
 		"format" = "html"
 	}
 	
@@ -63,3 +63,16 @@ rule ExperienceMap2Dot
 	}
 	
 }
+
+rule UserJourney2HTML
+	transform journey : UserJourney {
+	
+	template : "userjourney2html.egl"
+	
+	parameters : Map {
+		"path" = Sequence{"Liquimap", "Experience Maps", journey.eContainer().name, journey.name},
+		"format" = "html"
+	}
+	
+}
+
