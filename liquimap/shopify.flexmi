@@ -1,30 +1,54 @@
 <?nsuri liquimap?>
 <?render-egx liquimap.egx?>
 <_>
+
+<!--Blueprint -->
 <blueprint name="Shop shoes">
-	<stage name="Awareness" colour="rgb(0, 80, 93)">
+	<stage name="Awareness" colour="rgb(13, 107, 189)">
 		<step name="Wants to buy new shoes">
 			<touchpoint name="Ads" departments="marketing"/>
 			<touchpoint name="e-Shop" departments="marketing, eshop"/>
 		</step>
 		<step name="Clicks ad on landing page">
-			<touchpoint name="Blog" departments="marketing"/>
+			<touchpoint name="Blog" departments="marketing, product"/>
 		</step>
 	</stage>
-	<stage name="Consideration" colour="rgb(78, 132, 154)">
+	<stage name="Consideration" colour="rgb(16, 135, 236)">
 		<step name="Visits e-Shop">
-			<touchpoint name="Landing Page" departments="marketing, design"/>
-			<touchpoint name="Form" departments="marketing"/>
+			<touchpoint name="Landing Page" departments="marketing, design, product"/>
+			<touchpoint name="Form" departments="marketing, legal"/>
 			<touchpoint name="Product Page" deps="design"/>
 		</step>
 	</stage>
-	<department name="Marketing/Online Marketing" id="marketing"/>
+	<stage name="Acquisition" colour="rgb(191, 89, 0)">
+		<step name="Check out">
+			<touchpoint name="Login" departments="design, eshop, customer, legal"/>
+			<touchpoint name="Product Page" deps="design"/>
+		</step>
+		<step name="Thank you page">
+			<touchpoint name="Thank you page" departments="marketing, design, eshop, customer, legal, payment"/>
+		</step>
+	</stage>
+	<stage name="Loyalty" colour="rgb(230, 107, 0)">
+		<step name="Vouchers">
+			<touchpoint name="Landing Page" departments="marketing, design, eshop, customer"/>
+			<touchpoint name="Form" departments="eshop, customer, legal"/>
+			<touchpoint name="Newsletter" deps="marketing, design, customer"/>
+		</step>
+	</stage>
+	<department name="Marketing/Online Marketing" id="marketing" color="rgb(208, 208, 208)"/>
 	<department name="e-Shop Management" id="eshop"/>
 	<department name="Design" id="design"/>
+	<department name="Customer Management" id="customer"/>
+	<department name="Legal" id="legal"/>
+	<department name="Payment services" id="payment"/>
+	<department name="Produsct Management" id="product"/>
 </blueprint>
 
+
+<!--Experience map-->
 <experiencemap name="Shop shoes">
-	<action name="Arrives at langing page" id="a1" image="images/image1.png" color="rgb(0, 80, 93)">
+	<action name="Arrives at langing page" id="a1" image="images/image1.png" color="rgb(13, 107, 189)">
 		<gain>Page loads fast</gain>
 		<pain>Page looks terrible</pain>
 		<emotion>3</emotion>
@@ -34,14 +58,16 @@
 	</action>
 	<transition from="a1" to="d1"/>
 	<decision name="Man or woman?" id="d1"/>
-	<action name="Visit mens page" id="a2" image="images/image1.png" color="rgb(0, 80, 93)"/>
-	<action name="Visit womens page" id="a3" image="images/image1.png" color="rgb(0, 80, 93)"/>
+	<action name="Visit mens page" id="a2" image="images/image1.png" color="rgb(13, 107, 189)"/>
+	<action name="Visit womens page" id="a3" image="images/image1.png" color="rgb(13, 107, 189)"/>
 	<transition from="d1" to="a2" name="man" id="t1"/>
 	<transition from="d1" to="a3" name="woman" id="t2"/>
-	<action name="Check out" id="a4" image="images/image1.png" color="rgb(0, 80, 93)"/>
+	<action name="Check out" id="a4" image="images/image1.png" color="rgb(13, 107, 189)"/>
 	<transition from="a2" to="a4"/>
 	<transition from="a3" to="a4"/>
 	
+	
+<!--Journey map -->
 	<journey name="Man shops shoes" choices="t1" 
 		expectations="To buy functional shoes"/>
 	<journey name="Woman shops shoes" choices="t2" 

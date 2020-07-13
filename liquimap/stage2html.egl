@@ -1,33 +1,46 @@
-<table border="1">
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel="stylesheet" href="file:[%=getImage("liquimap.css") + "?" + 1.to(10000).random()%]"/>
+</head>
+
+<body>
+<table>
 	
 	<!--Steps row-->
 	<tr>
-	<td>Steps</td>
+	<td class="header">Steps</td>
 	[%for (step in stage.steps) { %]
-	<td colspan="[%=step.touchpoints.size()%]">[%=step.name%]</td>
+	<td  class="step" style="background-color:[%=step.eContainer().colour%]" colspan="[%=step.touchpoints.size()%]">[%=step.name%]</td>
 	[%}%]
 	</tr>
 
 	<!--Touchpoints row-->
 	<tr>
-	<td>Touchpoints</td>
+	<td class="header">Touchpoints</td>
 	[%for (touchpoint in stage.steps.touchpoints.flatten()) { %]
-	<td>[%=touchpoint.name%]</td>
+	[%var c=touchpoint.eContainer().eContainer().colour;%]
+	<td class="touchpoint" style="color:[%=c%]; border-color:[%=c%] [%if(loopCount=1){%];border-left: 2px solid;[%}%]">
+		[%=touchpoint.name%]</td>
 	[%}%]
 	</tr>
 	
 	[%for (department in getVisibleDepartments()) { %]
+	[%var lastDepartment = not hasMore;%]
 	<tr>
-		<td>[%=department.name%]</td>
+		<td class="department">[%=department.name%]</td>
 		[%for (touchpoint in stage.steps.touchpoints.flatten()) { %]
-		<td>
-		[%if (touchpoint.departments.includes(department)){%]x[%}%]
+		[%var c=touchpoint.eContainer().eContainer().colour;%]
+		<td class="touchpointinstance" style="color:[%=c%]; border-color:[%=c%] [%if(loopCount=1){%];border-left: 2px solid;[%}%]  [%if(lastDepartment){%];border-bottom: 2px solid;[%}%]">
+		[%if (touchpoint.departments.includes(department)){%]&#9900;[%}%]
 		</td>
 		[%}%]
 	</tr>
 	[%}%]
 	
 </table>
+</body>
+</html>
 
 [%
 

@@ -1,29 +1,39 @@
-<table border="1">
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel="stylesheet" href="file:[%=getImage("liquimap.css") + "?" + 1.to(10000).random()%]"/>
+</head>
+
+<body>
+<table>
 	<!--Stages row-->
 	<tr>
-	<td>Stages</td>
+	<td class="header">Stages</td>
 	[%for (stage in getVisibleStages()) { %]
-	<td colspan="[%=stage.steps.touchpoints.flatten().size()%]">[%=stage.name%]</td>
+	<td class="stage" style="background-color:[%=stage.colour%]"colspan="[%=stage.steps.touchpoints.flatten().size()%]">[%=stage.name%]</td>
 	[%}%]
 	</tr>
 	
 	<!--Steps row-->
 	<tr>
-	<td>Steps</td>
+	<td class="header">Steps</td>
 	[%for (step in getVisibleSteps()) { %]
-	<td colspan="[%=step.touchpoints.size()%]">[%=step.name%]</td>
+	<td class="step" style="background-color:[%=step.eContainer().colour%]" colspan="[%=step.touchpoints.size()%]">[%=step.name%]</td>
 	[%}%]
 	</tr>
 
 	<!--Touchpoints row-->
 	<tr>
-	<td>Touchpoints</td>
+	<td class="header">Touchpoints</td>
 	[%for (touchpoint in getVisibleTouchpoints()) { %]
-	<td>[%=touchpoint.name%]</td>
+	[%var c=touchpoint.eContainer().eContainer().colour;%]
+	<td class="touchpoint" style="color:[%=c%]; border-color:[%=c%] [%if(loopCount=1){%];border-left: 2px solid;[%}%]">[%=touchpoint.name%]</td>
 	[%}%]
 	</tr>
 	
 </table>
+</body>
+</html>
 
 [%
 operation getVisibleStages() {

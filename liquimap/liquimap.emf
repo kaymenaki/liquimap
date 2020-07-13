@@ -31,6 +31,7 @@ class Touchpoint {
 class Department {
 	id attr String ~id;
 	attr String name;
+	attr String colour;
 }
 
 // Experience map-related part of the language

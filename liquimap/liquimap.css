@@ -7,6 +7,7 @@ body {
 .header {
 	font-weight: bold;
 	text-transform: uppercase;
+	padding-right: 10px;
 }
 
 table {
@@ -21,6 +22,7 @@ table {
 	border-top-right-radius: 50px;
 	border-bottom-right-radius: 50px;
 	border-spacing: 10px;
+	border: 2px solid #ffffff
 }
 
 .step {
@@ -29,6 +31,7 @@ table {
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 	margin-bottom: 5px;
+	border: 1px solid #ffffff;
 }
 
 .touchpoint {
@@ -48,6 +51,7 @@ table {
 
 .department {
 	font-size: 80%;
+	padding-right: 10px;
 }
 
 a {
