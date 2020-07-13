@@ -13,7 +13,9 @@
         data.addRows([
           [%for (d in Department.all){%]
           	[%for (s in Step.all) { %]
+          		[%if (s.touchpoints.select(t|t.departments.includes(d)).size()>0){%]
 				[ '[%=d.name%]', '[%=s.name%]', [%=s.touchpoints.select(t|t.departments.includes(d)).size()%] ],
+				[%}%]
 			[%}%]
           [%}%]
         ]);

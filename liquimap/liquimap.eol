@@ -1,0 +1,13 @@
+operation isLayerActive(id : String) {
+	var layer = layers.selectOne(l|l.id = id);
+	if (layer.isDefined()) {
+		return layer.active;
+	}
+	else {
+		return true;
+	}
+}
+
+operation getCss(path : String) {
+	return "file:" + getImage(path) + "?" + 1.to(10000).random();
+}

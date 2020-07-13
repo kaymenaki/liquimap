@@ -6,6 +6,10 @@ rule Blueprint2HTML
 	parameters : Map {
 		"path" = Sequence{"Liquimap", "Blueprints", b.name},
 		"format" = "html",
+		"stages" = Stage.all,
+		"steps" = Step.all,
+		"touchpoints" = Touchpoint.all,
+		"departments" = Department.all,
 		"layers" = Sequence {
 			Map{
 				"title" = "Departments",
@@ -31,11 +35,15 @@ rule Blueprint2Sankey
 rule Department2HTML
 	transform d : Department {
 	
-	template : "department2html.egl"
+	template : "blueprint2html.egl"
 	
 	parameters : Map {
 		"path" = Sequence{"Liquimap", "Departments", d.name},
-		"format" = "html"
+		"format" = "html",
+		"stages" = d.getStages(),
+		"steps" = d.getSteps(),
+		"touchpoints" = d.getTouchpoints(),
+		"departments" = Sequence{d}
 	}
 	
 }
@@ -43,11 +51,15 @@ rule Department2HTML
 rule Stage2HTML
 	transform stage : Stage {
 	
-	template : "stage2html.egl"
+	template : "blueprint2html.egl"
 	
 	parameters : Map {
 		"path" = Sequence{"Liquimap", "Blueprints", stage.eContainer().name, "Stages", stage.name},
-		"format" = "html"
+		"format" = "html",
+		"stages" = Sequence{},
+		"steps" = stage.steps,
+		"touchpoints" = stage.steps.touchpoints.flatten(),
+		"departments" = stage.getDepartments()
 	}
 	
 }
@@ -76,3 +88,21 @@ rule UserJourney2HTML
 	
 }
 
+operation Department getStages() {
+	return Stage.all.select(stage|stage.steps.exists(step|self.getSteps().includes(step)));
+}
+
+operation Department getSteps() {
+	return Step.all.select(step|step.touchpoints.
+		exists(touchpoint|self.getTouchpoints().includes(touchpoint)));
+}
+
+operation Department getTouchpoints() {
+	return Touchpoint.all.select(touchpoint|touchpoint.departments.includes(self));
+}
+
+operation Stage getDepartments() {
+	
+	return Department.all.select(d|
+		self.steps.touchpoints.flatten().departments.flatten().includes(d));
+}

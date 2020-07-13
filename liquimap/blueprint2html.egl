@@ -1,49 +1,56 @@
+[%import 'liquimap.eol';%]
 <html>
 <head>
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-<link rel="stylesheet" href="file:[%=getImage("liquimap.css") + "?" + 1.to(10000).random()%]"/>
+<link rel="stylesheet" href="[%=getCss("liquimap.css")%]"/>
 </head>
 
 <body>
 <table>
+
+	[%if (not stages.isEmpty()){%]
 	<!--Stages row-->
 	<tr>
 	<td class="header">Stages</td>
-	[%for (stage in Stage.all) { %]
-	<td colspan="[%=stage.steps.touchpoints.flatten().size()%]" class="stage" style="background-color:[%=stage.colour%]">[%=stage.name%]</td>
+	[%for (stage in stages) { %]
+	<td colspan="[%=stage.getColspan()%]" 
+	    style="[%=stage.getTdStyle()%]">
+	    
+	    <div class="stage" style="[%=stage.getDivStyle()%]">[%=stage.name%]</div>
+	</td>
 	[%}%]
 	</tr>
+	[%}%]
 	
 	<!--Steps row-->
 	<tr>
 	<td class="header">Steps</td>
-	[%for (step in Step.all) { %]
-	<td colspan="[%=step.touchpoints.size()%]" class="step" style="background-color:[%=step.eContainer().colour%]">[%=step.name%]</td>
+	[%for (step in steps) { %]
+	<td colspan="[%=step.getColspan()%]" 
+	    class="step" 
+	    style="[%=step.getStyle()%]">[%=step.name%]</td>
 	[%}%]
 	</tr>
 
 	<!--Touchpoints row-->
 	<tr>
 	<td class="header">Touchpoints</td>
-	[%for (touchpoint in Touchpoint.all) { %]
-	[%var c=touchpoint.eContainer().eContainer().colour;%]
-	<td class="touchpoint" style="color:[%=c%]; border-color:[%=c%] [%if(loopCount=1){%];border-left: 2px solid;[%}%]">[%=touchpoint.name%]</td>
+	[%for (touchpoint in touchpoints) { %]
+	<td class="touchpoint" style="[%=touchpoint.getStyle()%]">[%=touchpoint.name%]</td>
 	[%}%]
 	</tr>
 	
 	[%if (isLayerActive("departments")){%]
 	
-	[%for (department in Department.all) { %]
-	[%var lastDepartment = not hasMore;%]
+	[%for (department in departments) { %]
 	<tr>
 		<td class="department">
 			<a href="javascript:showView(['Liquimap','Departments','[%=department.name%]'])">
 				[%=department.name%]
 			</a>
 		</td>
-		[%for (touchpoint in Touchpoint.all) { %]
-		[%var c=touchpoint.eContainer().eContainer().colour;%]
-		<td class="touchpointinstance" style="color:[%=c%]; border-color:[%=c%] [%if(loopCount=1){%];border-left: 2px solid;[%}%]  [%if(lastDepartment){%];border-bottom: 2px solid;[%}%]">
+		[%for (touchpoint in touchpoints) { %]
+		<td class="touchpointinstance" style="[%=touchpoint.getStyle(department)%]">
 		[%if (touchpoint.departments.includes(department)){%]&#9900;[%}%]
 		</td>
 		[%}%]
@@ -57,13 +64,58 @@
 </html>
 
 [%
-operation isLayerActive(id : String) {
-	var layer = layers.selectOne(l|l.id = id);
-	if (layer.isDefined()) {
-		return layer.active;
-	}
-	else {
-		return true;
-	}
+
+operation Stage getSiblings() {
+	return self.eContainer().stages.select(s|stages.includes(s));
+}
+
+operation Step getSiblings() {
+	return self.eContainer().steps.select(s|steps.includes(s));
+}
+
+operation Stage getPreviousColour() {
+	var stageIndex = self.getSiblings().indexOf(self);
+	if (stageIndex == 0) return self.colour;
+	else return self.getSiblings().at(stageIndex - 1).colour;
+}
+
+operation Step getBorder() {
+	var stepIndex = self.getSiblings().indexOf(self);
+	if (stepIndex != self.getSiblings().size()-1) return "border-right:1px solid white";
+	else return "";
+}
+
+operation Stage getColspan() {
+	return self.steps.select(s|steps.includes(s)).collect(s|s.getColspan()).sum();
+}
+
+operation Stage getTdStyle() {
+	return "padding:0px;" + 
+		   "background-color:" + self.getPreviousColour();
+}
+
+operation Stage getDivStyle() {
+	return "background-color:" + self.colour;
+}
+
+operation Step getColspan() {
+	return self.touchpoints.select(t|touchpoints.includes(t)).size();
+}
+
+operation Step getStyle() {
+	return "background-color:" + self.eContainer().colour + ";" +
+		   self.getBorder();
+}
+
+operation Touchpoint getStyle() {
+	var colour = self.eContainer().eContainer().colour;
+	return "color:" + colour + ";" +
+	       "border-color:" + colour + ";" +
+	       (touchpoints.first() == self ? "border-left: 2px solid;" : "");
+}
+
+operation Touchpoint getStyle(department : Department) {
+	return self.getStyle() + 
+		(departments.last() == department ? "border-bottom: 2px solid;" : "");
 }
 %]
