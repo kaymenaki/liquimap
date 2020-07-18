@@ -11,3 +11,8 @@ operation isLayerActive(id : String) {
 operation getCss(path : String) {
 	return "file:" + getImage(path) + "?" + 1.to(10000).random();
 }
+
+operation Action getLabel() {
+	if (self.name.isUndefined() and self.touchpoint.isDefined()) return self.touchpoint.name;
+	else return self.name;
+}

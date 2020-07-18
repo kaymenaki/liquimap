@@ -1,19 +1,23 @@
+pre {
+	var blueprint = Blueprint.all.first();
+}
+
 rule Blueprint2HTML 
 	transform b : Blueprint {
 
 	template : "blueprint2html.egl"
 
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Blueprints", b.name},
+		"path" = Sequence{b.name},
 		"format" = "html",
 		"stages" = Stage.all,
 		"steps" = Step.all,
 		"touchpoints" = Touchpoint.all,
-		"departments" = Department.all,
+		"participants" = Participant.all,
 		"layers" = Sequence {
 			Map{
-				"title" = "Departments",
-				"id" = "departments"
+				"title" = "Participants",
+				"id" = "participants"
 			}
 		}
 	}
@@ -26,24 +30,24 @@ rule Blueprint2Sankey
 	template : "blueprint2sankey.egl"
 
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Blueprints", b.name, "Sankey"},
+		"path" = Sequence{b.name, "Sankey"},
 		"format" = "html"
 	}
 	
 }
 
-rule Department2HTML
-	transform d : Department {
+rule Participant2HTML
+	transform p : Participant {
 	
 	template : "blueprint2html.egl"
 	
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Departments", d.name},
+		"path" = Sequence{blueprint.name, "Participants", p.name},
 		"format" = "html",
-		"stages" = d.getStages(),
-		"steps" = d.getSteps(),
-		"touchpoints" = d.getTouchpoints(),
-		"departments" = Sequence{d}
+		"stages" = p.getStages(),
+		"steps" = p.getSteps(),
+		"touchpoints" = p.getTouchpoints(),
+		"participants" = Sequence{p}
 	}
 	
 }
@@ -54,12 +58,12 @@ rule Stage2HTML
 	template : "blueprint2html.egl"
 	
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Blueprints", stage.eContainer().name, "Stages", stage.name},
+		"path" = Sequence{stage.eContainer().name, "Stages", stage.name},
 		"format" = "html",
 		"stages" = Sequence{},
 		"steps" = stage.steps,
 		"touchpoints" = stage.steps.touchpoints.flatten(),
-		"departments" = stage.getDepartments()
+		"participants" = stage.getParticipants()
 	}
 	
 }
@@ -70,8 +74,29 @@ rule ExperienceMap2Dot
 	template : "experiencemap2dot.egl"
 
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Experience Maps", map.name},
-		"format" = "graphviz-dot"
+		"path" = Sequence{map.eContainer.name, "Experience Map"},
+		"format" = "graphviz-dot",
+		"stage" = null
+	}
+	
+}
+
+rule StageExperienceMap2Dot 
+	transform stage : Stage {
+
+	template : "experiencemap2dot.egl"
+
+	parameters : Map {
+		"path" = Sequence{blueprint.name, "Experience Map", "Stages", stage.name},
+		"format" = "graphviz-dot",
+		"map" = blueprint.experienceMap,
+		"layers" = Sequence {
+			Map {
+				"id" = "adjacent",
+				"title" = "Adjacent nodes",
+				"active" = false
+			}
+		}
 	}
 	
 }
@@ -82,27 +107,27 @@ rule UserJourney2HTML
 	template : "userjourney2html.egl"
 	
 	parameters : Map {
-		"path" = Sequence{"Liquimap", "Experience Maps", journey.eContainer().name, journey.name},
+		"path" = Sequence{journey.eContainer().eContainer().name, "Experience Map", "Journeys", journey.name},
 		"format" = "html"
 	}
 	
 }
 
-operation Department getStages() {
+operation Participant getStages() {
 	return Stage.all.select(stage|stage.steps.exists(step|self.getSteps().includes(step)));
 }
 
-operation Department getSteps() {
+operation Participant getSteps() {
 	return Step.all.select(step|step.touchpoints.
 		exists(touchpoint|self.getTouchpoints().includes(touchpoint)));
 }
 
-operation Department getTouchpoints() {
-	return Touchpoint.all.select(touchpoint|touchpoint.departments.includes(self));
+operation Participant getTouchpoints() {
+	return Touchpoint.all.select(touchpoint|touchpoint.participants.includes(self));
 }
 
-operation Stage getDepartments() {
+operation Stage getParticipants() {
 	
-	return Department.all.select(d|
-		self.steps.touchpoints.flatten().departments.flatten().includes(d));
+	return Participant.all.select(p|
+		self.steps.touchpoints.flatten().participants.flatten().includes(p));
 }

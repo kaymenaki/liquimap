@@ -1,21 +1,44 @@
+[%
+	import 'liquimap.eol';
+	var nodes = map.nodes;
+	var transitions = map.transitions;
+	
+	if (stage.isDefined()) {
+		var touchpoints = stage.steps.touchpoints.flatten();
+		nodes = nodes.select(n|touchpoints.includes(n.touchpoint));
+		transitions = transitions.select(t|nodes.includes(t.from) or nodes.includes(t.to));
+		
+		if (isLayerActive("adjacent")) {
+			nodes.addAll(transitions.from);
+			nodes.addAll(transitions.to);
+		}
+		else {
+			nodes.addAll(transitions.from.select(n|n.touchpoint.isUndefined() or touchpoints.includes(n.touchpoint)));
+			nodes.addAll(transitions.to.select(n|n.touchpoint.isUndefined() or touchpoints.includes(n.touchpoint)));
+			transitions = transitions.select(t|nodes.includes(t.from) and nodes.includes(t.to));
+		}
+		nodes = nodes.asSet();
+	}
+	
+%]
 digraph G {
-	node[shape=record, fontname=Tahoma, fontsize=10, style=filled, fillcolor=azure, gradientangle="270"]
+	node[shape=rectangle, fontname=Tahoma, fontsize=10, fontcolor=white, style=filled, gradientangle="270"]
 	edge[fontname=Tahoma, fontsize=10, fontcolor=grey]
 	rankdir=LR;
 	
-	[%for (node in map.nodes) { %]
-	[%=node.getNodeId()%] [label="[%=node.getLabel()%]" shape="[%=node.getShape()%]" fillcolor="[%=node.getFillColor()%]"];
+	[%for (node in nodes) { %]
+	[%=node.getNodeId()%] [label="[%=node.getLabel()%]", shape="[%=node.getShape()%]", fillcolor="[%=node.getFillColor()%]", fontcolor="[%=node.getFontColor()%]", tooltip="[%=node.id%]", style="[%=node.getStyle()%]"];
 	[%}%]
 	
-	[%for (transition in map.transitions) { %]
-	[%=transition.from.getNodeId()%] -> [%=transition.to.getNodeId()%] [label="[%=transition.name%]"];
+	[%for (transition in transitions) { %]
+	[%=transition.from.getNodeId()%] -> [%=transition.to.getNodeId()%] [label="[%=transition.name%]", tooltip="[%=transition.id%]"];
 	[%}%]
 	
 }
 
 [%
 operation ExperienceMapNode getNodeId() {
-	return "Node" + self.eContainer().nodes.indexOf(self);
+	return "Node" + nodes.indexOf(self);
 }
 
 operation ExperienceMapNode getShape() {
@@ -27,21 +50,39 @@ operation ExperienceMapNode getShape() {
 	}
 }
 
-operation ExperienceMapNode getLabel() {
-	if (self.isTypeOf(Decision)) {
-		return "";
+operation ExperienceMapNode getFontColor() {
+	if (self.touchpoint.isDefined()) {
+		return "white";
 	}
 	else {
-		return self.name;
+		return "black";
 	}
 }
 
 operation ExperienceMapNode getFillColor() {
-	if (self.isTypeOf(Decision)) {
-		return "wheat:white";
+	if (self.touchpoint.isDefined()) {
+		return self.touchpoint.eContainer().eContainer().colour;
 	}
 	else {
-		return "azure";
+		if (self.isTypeOf(Decision)) {
+			return "floralwhite";
+		}
+		else {
+			return "white";
+		}
 	}
+}
+
+operation ExperienceMapNode getStyle() {
+	if (self.isTypeOf(Decision)) {
+		return "filled";
+	}
+	else {
+		return "filled, rounded";
+	}
+}
+
+operation Decision getLabel() {
+	return "";
 }
 %]

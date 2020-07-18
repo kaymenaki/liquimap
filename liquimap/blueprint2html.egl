@@ -1,11 +1,12 @@
 [%import 'liquimap.eol';%]
 <html>
 <head>
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'/>
 <link rel="stylesheet" href="[%=getCss("liquimap.css")%]"/>
 </head>
 
 <body>
+
 <table>
 
 	[%if (not stages.isEmpty()){%]
@@ -40,18 +41,18 @@
 	[%}%]
 	</tr>
 	
-	[%if (isLayerActive("departments")){%]
+	[%if (isLayerActive("participants")){%]
 	
-	[%for (department in departments) { %]
+	[%for (participant in participants) { %]
 	<tr>
-		<td class="department">
-			<a href="javascript:showView(['Liquimap','Departments','[%=department.name%]'])">
-				[%=department.name%]
+		<td class="participant">
+			<a href="javascript:showView(['Liquimap','Participants','[%=participant.name%]'])">
+				[%=participant.name%]
 			</a>
 		</td>
 		[%for (touchpoint in touchpoints) { %]
-		<td class="touchpointinstance" style="[%=touchpoint.getStyle(department)%]">
-		[%if (touchpoint.departments.includes(department)){%]&#9900;[%}%]
+		<td class="touchpointinstance" style="[%=touchpoint.getStyle(participant)%]">
+		[%if (touchpoint.participants.includes(participant)){%]&#9900;[%}%]
 		</td>
 		[%}%]
 	</tr>
@@ -114,8 +115,8 @@ operation Touchpoint getStyle() {
 	       (touchpoints.first() == self ? "border-left: 2px solid;" : "");
 }
 
-operation Touchpoint getStyle(department : Department) {
+operation Touchpoint getStyle(participant : Participant) {
 	return self.getStyle() + 
-		(departments.last() == department ? "border-bottom: 2px solid;" : "");
+		(participants.last() == participant ? "border-bottom: 2px solid;" : "");
 }
 %]

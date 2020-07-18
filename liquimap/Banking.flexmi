@@ -1,0 +1,97 @@
+<?nsuri liquimap?>
+<?render-egx liquimap.egx?>
+<_>
+
+<!--Blueprint -->
+<blueprint name="Financial products">
+<stage name="Research" colour="#1087ef">
+		<step name="Wants to find new financial product">
+			<touchpoint name="Search engine" participants="marketing, seo, "/>
+			<touchpoint name="Website" participants="marketing, eshop"/>
+		</step>
+		<step name="Finds products">
+			<touchpoint name="Compare products" participants="marketing, product"/>
+			<touchpoint name="Choose product" participants="marketing, product"/>
+		</step>
+	</stage>
+	<stage name="Application" colour="#4e9c2d">
+		<step name="Welcome">
+			<touchpoint name="Product information" participants="marketing"/>
+			<touchpoint name="Legal information" participants="marketing, eshop"/>
+		</step>
+		<step name="Eligibility">
+			<touchpoint name="New or existing customer?" participants="marketing, product"/>
+			<touchpoint name="Online registered?" participants="marketing, product"/>
+		</step>
+		<step name="Details">
+			<touchpoint name="Personal details" participants="marketing"/>
+			<touchpoint name="Financial details" participants="marketing, eshop"/>
+			<touchpoint name="Other accounts?" participants="marketing, eshop"/>
+		</step>
+		<step name="Verification">
+			<touchpoint name="ID Verification" participants="marketing, product"/>
+			<touchpoint name="Upload documents" participants="marketing, product"/>
+		</step>
+		<step name="Review">
+			<touchpoint name="Review application" participants="marketing, product"/>
+			<touchpoint name="Edit" participants="marketing, product"/>
+			<touchpoint name="Sign" participants="marketing, product"/>
+			<touchpoint name="Submit" participants="marketing, product"/>
+		</step>
+	</stage>
+	<stage name="Setup" colour="#e66b00">
+		<step name="Online registration">
+			<touchpoint name="Log on info" participants="marketing, design, product"/>
+			<touchpoint name="Security question" participants="marketing, legal"/>
+		</step>
+		<step name="Additional product">
+			<touchpoint name="Add other product" participants="marketing, design, product"/>
+			<touchpoint name="Select product" participants="marketing, legal"/>
+		</step>
+		<step name="Post">
+			<touchpoint name="Receive supporting material" participants="marketing, design, product"/>
+		</step>
+	</stage>
+	
+	<!--Experience map-->
+	<experiencemap name="Financial products">
+		<action name="Arrives at langing page" id="a1" image="images/image1.png" color="rgb(13, 107, 189)">
+			<gain>Page loads fast</gain>
+			<pain>Page looks terrible</pain>
+			<emotion>3</emotion>
+			<mood>Mixed feelings</mood>
+			<opportunity>Sales!</opportunity>
+			<comment>N/A</comment>
+		</action>
+		<transition from="a1" to="d1"/>
+		<decision name="Man or woman?" id="d1"/>
+		<action name="Visit mens page" id="a2" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Visit womens page" id="a3" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="d1" to="a2" name="man" id="t1"/>
+		<transition from="d1" to="a3" name="woman" id="t2"/>
+		<action name="Check out" id="a4" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="a2" to="a4"/>
+		<transition from="a3" to="a4"/>
+		
+		
+	<!--Journey map -->
+		<journey name="Man shops shoes" choices="t1" 
+			expectations="To buy functional shoes"/>
+		<journey name="Woman shops shoes" choices="t2" 
+			expectations="To buy expensive shoes"/>
+		
+	</experiencemap>
+</blueprint>
+<participant name="SEO" id="seo" color="rgb(208, 208, 208)"/>
+<participant name="Design" id="design"/>
+<participant name="Legal" id="legal"/>
+<participant name="Customer Management" id="customer"/>
+<participant name="Marketing" id="marketing"/>
+<participant name="Customer success" id="success"/>
+<participant name="Product Management" id="product"/>
+<participant name="Product analyst" id="analyst"/>
+<participant name="Customer service" id="service"/>
+<participant name="Developers" id="devs"/>
+<participant name="Software engineers" id="engineers"/>
+
+</_>

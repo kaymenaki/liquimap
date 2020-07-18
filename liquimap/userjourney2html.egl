@@ -1,3 +1,4 @@
+[%import 'liquimap.eol';%]
 <html>
 <head>
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
@@ -13,14 +14,14 @@
 	<tr>
 		<td> </td>
 		[%for (action in actions) { %]
-			<td class="action" style="background-color: [%=action.colour%]">[%=action.name%]</td>
+			<td class="action" style="background-color: [%=action.colour%]">[%=action.getLabel()%]</td>
 		[%}%]
 	</tr>
 	
 	<tr>
 		<td> </td>
 		[%for (action in actions) { %]
-			<td><img src="[%=getImage(action.image)%]" style="width:200px"></td>
+			<td><img src="[%=action.image.isDefined() ? getImage(action.image) : ''%]" style="width:200px"></td>
 		[%}%]
 	</tr>
 	

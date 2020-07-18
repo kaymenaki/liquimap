@@ -11,10 +11,10 @@
         data.addColumn('string', 'To');
         data.addColumn('number', 'Touchpoints');
         data.addRows([
-          [%for (d in Department.all){%]
+          [%for (p in Participant.all){%]
           	[%for (s in Step.all) { %]
-          		[%if (s.touchpoints.select(t|t.departments.includes(d)).size()>0){%]
-				[ '[%=d.name%]', '[%=s.name%]', [%=s.touchpoints.select(t|t.departments.includes(d)).size()%] ],
+          		[%if (s.touchpoints.select(t|t.participants.includes(p)).size()>0){%]
+				[ '[%=p.name%]', '[%=s.name%]', [%=s.touchpoints.select(t|t.participants.includes(p)).size()%] ],
 				[%}%]
 			[%}%]
           [%}%]

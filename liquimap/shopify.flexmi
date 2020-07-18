@@ -4,75 +4,88 @@
 
 <!--Blueprint -->
 <blueprint name="Shop shoes">
-	<stage name="Awareness" colour="rgb(13, 107, 189)">
+	<stage name="Awareness" colour="#306AB7">
 		<step name="Wants to buy new shoes">
-			<touchpoint name="Ads" departments="marketing"/>
-			<touchpoint name="e-Shop" departments="marketing, eshop"/>
+			<touchpoint name="Ads" participants="marketing"/>
+			<touchpoint name="e-Shop" participants="marketing, eshop"/>
 		</step>
 		<step name="Clicks ad on landing page">
-			<touchpoint name="Blog" departments="marketing, product"/>
+			<touchpoint name="Blog" participants="marketing, product" id="blog-touchpoint"/>
 		</step>
 	</stage>
-	<stage name="Consideration" colour="rgb(16, 135, 236)">
+	<stage name="Consideration" colour="#3E85E5">
 		<step name="Visits e-Shop">
-			<touchpoint name="Landing Page" departments="marketing, design, product"/>
-			<touchpoint name="Form" departments="marketing, legal"/>
+			<touchpoint name="Landing Page" participants="marketing, design, product" id="landing-page-touchpoint"/>
+			<touchpoint name="Form" participants="marketing, legal"/>
 			<touchpoint name="Product Page" deps="design"/>
 		</step>
 	</stage>
-	<stage name="Acquisition" colour="rgb(191, 89, 0)">
-		<step name="Check out">
-			<touchpoint name="Login" departments="design, eshop, customer, legal"/>
-			<touchpoint name="Product Page" deps="design"/>
+	<!--stage name="NewStage" colour="green">
+		<step name="Wants to buy new shoes">
+			<touchpoint name="Ads" participants="marketing"/>
+			<touchpoint name="e-Shop" participants="marketing, eshop"/>
+		</step>
+		<step name="Clicks ad on landing page">
+			<touchpoint name="Blog" participants="marketing, product"/>
+		</step>
+	</stage-->
+	<stage name="Acquisition" colour="#B25F22">
+		<step name="Buy">
+			<touchpoint name="Add to basket" participants="design, eshop, customer, legal" id="add-to-basket-touchpoint"/>
+			<touchpoint name="Pay" deps="design" id="pay-touchpoint"/>
 		</step>
 		<step name="Thank you page">
-			<touchpoint name="Thank you page" departments="marketing, design, eshop, customer, legal, payment"/>
+			<touchpoint name="Thank you page" participants="marketing, design, eshop, customer, legal, payment" id="thank-you-touchpoint"/>
 		</step>
 	</stage>
-	<stage name="Loyalty" colour="rgb(230, 107, 0)">
+	<stage name="Loyalty" colour="#D6722B">
 		<step name="Vouchers">
-			<touchpoint name="Landing Page" departments="marketing, design, eshop, customer"/>
-			<touchpoint name="Form" departments="eshop, customer, legal"/>
-			<touchpoint name="Newsletter" deps="marketing, design, customer"/>
+			<touchpoint name="Offer voucher" participants="marketing, design, eshop, customer" id="offer-voucher-touchpoint"/>
+			<touchpoint name="Redeem voucher" participants="eshop, customer, legal" id="redeem-voucher-touchpoint"/>
 		</step>
 	</stage>
-	<department name="Marketing/Online Marketing" id="marketing" color="rgb(208, 208, 208)"/>
-	<department name="e-Shop Management" id="eshop"/>
-	<department name="Design" id="design"/>
-	<department name="Customer Management" id="customer"/>
-	<department name="Legal" id="legal"/>
-	<department name="Payment services" id="payment"/>
-	<department name="Produsct Management" id="product"/>
+	
+	<!--Experience map-->
+	<experiencemap name="Shop shoes">
+		<action id="landing-page-action" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="landing-page-touchpoint">
+			<gain>Page loads fast</gain>
+			<pain>Page looks terrible</pain>
+			<emotion>3</emotion>
+			<mood>Mixed feelings</mood>
+			<opportunity>Sales!</opportunity>
+			<comment>N/A</comment>
+		</action>
+		<transition from="landing-page-action" to="man-or-woman"/>
+		<decision name="Man or woman?" id="man-or-woman"/>
+		<action name="Visit mens page" id="visit-mens-page-action" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Visit womens page" id="visit-womens-page-action" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="man-or-woman" to="visit-mens-page-action" name="man" id="is-man"/>
+		<transition from="man-or-woman" to="visit-womens-page-action" name="woman" id="is-woman"/>
+		<action id="add-to-basket-action" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="add-to-basket-touchpoint"/>
+		<transition from="visit-womens-page-action" to="add-to-basket-action"/>
+		<transition from="visit-mens-page-action" to="add-to-basket-action"/>
+		<action id="pay-action" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="pay-touchpoint"/>
+		<transition from="add-to-basket-action" to="pay-action"/>
+		<action id="offer-voucher-action" touchpoint="offer-voucher-touchpoint"/>
+		<action id="redeem-voucher-action" touchpoint="redeem-voucher-touchpoint"/>
+		<transition from="pay-action" to="offer-voucher-action"/>
+		<transition from="offer-voucher-action" to="redeem-voucher-action"/>
+		
+		<!--Journey map -->
+		<journey name="Man shops shoes" choices="is-man" 
+			expectations="To buy functional shoes"/>
+		<journey name="Woman shops shoes" choices="is-woman" 
+			expectations="To buy expensive shoes"/>
+		
+	</experiencemap>
 </blueprint>
 
-
-<!--Experience map-->
-<experiencemap name="Shop shoes">
-	<action name="Arrives at langing page" id="a1" image="images/image1.png" color="rgb(13, 107, 189)">
-		<gain>Page loads fast</gain>
-		<pain>Page looks terrible</pain>
-		<emotion>3</emotion>
-		<mood>Mixed feelings</mood>
-		<opportunity>Sales!</opportunity>
-		<comment>N/A</comment>
-	</action>
-	<transition from="a1" to="d1"/>
-	<decision name="Man or woman?" id="d1"/>
-	<action name="Visit mens page" id="a2" image="images/image1.png" color="rgb(13, 107, 189)"/>
-	<action name="Visit womens page" id="a3" image="images/image1.png" color="rgb(13, 107, 189)"/>
-	<transition from="d1" to="a2" name="man" id="t1"/>
-	<transition from="d1" to="a3" name="woman" id="t2"/>
-	<action name="Check out" id="a4" image="images/image1.png" color="rgb(13, 107, 189)"/>
-	<transition from="a2" to="a4"/>
-	<transition from="a3" to="a4"/>
-	
-	
-<!--Journey map -->
-	<journey name="Man shops shoes" choices="t1" 
-		expectations="To buy functional shoes"/>
-	<journey name="Woman shops shoes" choices="t2" 
-		expectations="To buy expensive shoes"/>
-	
-</experiencemap>
+<participant name="Marketing/Online Marketing" id="marketing" color="rgb(208, 208, 208)"/>
+<participant name="e-Shop Management" id="eshop"/>
+<participant name="Design" id="design"/>
+<participant name="Customer Management" id="customer"/>
+<participant name="Legal" id="legal"/>
+<participant name="Payment services" id="payment"/>
+<participant name="Product Management" id="product"/>
 
 </_>

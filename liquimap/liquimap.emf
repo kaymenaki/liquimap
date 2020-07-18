@@ -6,7 +6,7 @@ package liquimap;
 class Blueprint{
 	attr String name;
 	val Stage[*] stages;
-	val Department[*] departments;
+	val ExperienceMap experienceMap;
 }
 
 class Stage {
@@ -25,10 +25,10 @@ class Step {
 class Touchpoint {
 	id attr String ~id;
 	attr String name;
-	ref Department[*] departments;
+	ref Participant[*] participants;
 }
 
-class Department {
+class Participant {
 	id attr String ~id;
 	attr String name;
 	attr String colour;
@@ -49,6 +49,7 @@ abstract class ExperienceMapNode {
 	attr String name;
 	ref Transition[*]#from outgoing;
 	ref Transition[*]#to incoming;
+	ref Touchpoint touchpoint;
 }
 
 class Action extends ExperienceMapNode {
@@ -59,7 +60,6 @@ class Action extends ExperienceMapNode {
 	attr String[*] gains;
 	attr String[*] opportunities;
 	attr String comments;
-	ref Touchpoint touchpoint;
 	attr String colour;
 }
 
