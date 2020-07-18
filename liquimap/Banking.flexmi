@@ -6,64 +6,112 @@
 <blueprint name="Financial products">
 <stage name="Research" colour="#1087ef">
 		<step name="Wants to find new financial product">
-			<touchpoint name="Search engine" participants="marketing, seo, "/>
-			<touchpoint name="Website" participants="marketing, eshop"/>
+			<touchpoint name="Search engine" participants="marketing, seo"/>
+			<touchpoint name="Website" participants="marketing, design, devs,"/>
 		</step>
 		<step name="Finds products">
-			<touchpoint name="Compare products" participants="marketing, product"/>
-			<touchpoint name="Choose product" participants="marketing, product"/>
+			<touchpoint name="Compare products" participants="marketing, product, design, devs, analyst, engineers, success"/>
+			<touchpoint name="Choose product" participants="marketing, product, design, devs, analyst"/>
 		</step>
 	</stage>
 	<stage name="Application" colour="#4e9c2d">
 		<step name="Welcome">
-			<touchpoint name="Product information" participants="marketing"/>
-			<touchpoint name="Legal information" participants="marketing, eshop"/>
+			<touchpoint name="Product information" participants="marketing, product, legal"/>
+			<touchpoint name="Legal information" participants="product, legal, success"/>
 		</step>
 		<step name="Eligibility">
-			<touchpoint name="New or existing customer?" participants="marketing, product"/>
-			<touchpoint name="Online registered?" participants="marketing, product"/>
+			<touchpoint name="New or existing customer?" participants="customer" id="nc_ec_touchpoint"/>
+			<touchpoint name="Online registered?" participants="customer, product"/>
 		</step>
 		<step name="Details">
-			<touchpoint name="Personal details" participants="marketing"/>
-			<touchpoint name="Financial details" participants="marketing, eshop"/>
-			<touchpoint name="Other accounts?" participants="marketing, eshop"/>
+			<touchpoint name="Personal details" participants="design, devs, customer"/>
+			<touchpoint name="Financial details" participants="design, devs, customer, legal"/>
+			<touchpoint name="Other accounts?" participants="design, devs, customer, legal"/>
 		</step>
 		<step name="Verification">
-			<touchpoint name="ID Verification" participants="marketing, product"/>
-			<touchpoint name="Upload documents" participants="marketing, product"/>
+			<touchpoint name="ID Verification" participants="devs, engineers, customer, legal"/>
+			<touchpoint name="Upload documents" participants="service, devs, engineers, customer, legal"/>
 		</step>
 		<step name="Review">
-			<touchpoint name="Review application" participants="marketing, product"/>
-			<touchpoint name="Edit" participants="marketing, product"/>
-			<touchpoint name="Sign" participants="marketing, product"/>
-			<touchpoint name="Submit" participants="marketing, product"/>
+			<touchpoint name="Review application" participants="design, devs, customer"/>
+			<touchpoint name="Edit" participants="design, devs, customer"/>
+			<touchpoint name="Sign" participants="design, devs, customer, legal"/>
+			<touchpoint name="Submit" participants="design, devs, customer, product, legal"/>
 		</step>
 	</stage>
 	<stage name="Setup" colour="#e66b00">
 		<step name="Online registration">
-			<touchpoint name="Log on info" participants="marketing, design, product"/>
-			<touchpoint name="Security question" participants="marketing, legal"/>
+			<touchpoint name="Log on info" participants="devs, engineers, customer"/>
+			<touchpoint name="Security question" participants="devs, engineers, customer, legal"/>
 		</step>
 		<step name="Additional product">
-			<touchpoint name="Add other product" participants="marketing, design, product"/>
-			<touchpoint name="Select product" participants="marketing, legal"/>
+			<touchpoint name="Add other product" participants="marketing, design, product, analyst, success"/>
+			<touchpoint name="Select product" participants="marketing, design, product, success"/>
 		</step>
 		<step name="Post">
-			<touchpoint name="Receive supporting material" participants="marketing, design, product"/>
+			<touchpoint name="Receive supporting material" participants="marketing, product, customer, service"/>
 		</step>
 	</stage>
 	
 	<!--Experience map-->
 	<experiencemap name="Financial products">
-		<action name="Arrives at langing page" id="a1" image="images/image1.png" color="rgb(13, 107, 189)">
-			<gain>Page loads fast</gain>
-			<pain>Page looks terrible</pain>
+		<!-- RESEARCH-->
+		<action name="Searches on the web" id="search" image="images/image1.png" color="rgb(13, 107, 189)">
+			<gain>N/A</gain>
+			<pain>N/A</pain>
 			<emotion>3</emotion>
-			<mood>Mixed feelings</mood>
-			<opportunity>Sales!</opportunity>
+			<mood>N/A</mood>
+			<opportunity>N/A</opportunity>
 			<comment>N/A</comment>
 		</action>
-		<transition from="a1" to="d1"/>
+		<transition from="search" to="clicks"/>
+		<action name="Clicks on the website" id="clicks" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<transition from="clicks" to="landing_page"/>
+		<action name="Arrives on the landing page" id="landing_page" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<transition from="landing_page" to="compares"/>
+		<action name="Compares relevant products" id="compares" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<transition from="compares" to="chooses"/>
+		<action name="Chooses ideal product" id="chooses" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<!-- APPLICATION-->
+		<action name="Welcome page" id="welcome" image="images/image1.png" color="rgb(13, 107, 189)">
+			<gain>N/A</gain>
+			<pain>N/A</pain>
+			<emotion>3</emotion>
+			<mood>N/A</mood>
+			<opportunity>N/A</opportunity>
+			<comment>N/A</comment>
+		</action>
+		<transition from="welcome" to="product_info"/>
+		<action name="Reads product information" id="product_info" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<transition from="product_info" to="legal_info"/>
+		<action name="Reads legal information" id="legal_info" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<transition from="legal_info" to="nc_ec"/>
+		<decision name="New or existing customer?" id="nc_ec" touchpoint="nc_ec_touchpoint">
+		</decision>
+		<action name="New" id="new" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="nc_ec" to="new" name="New" id="t1"/>
+		<action name="Existing" id="existing" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="nc_ec" to="existing" name="Existing" id="t2"/>
+		<decision name="Are you online registered?" id="online_reg">
+		</decision>
+		<transition from="existing" to="online_reg" id="t2"/>
+		
+		<!--<transition from="nc_ec" to="new" name="New" id="t1"/>
+		<action name="Yes" id="yes" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<action name="No" id="yes" image="images/image1.png" color="rgb(13, 107, 189)">
+		</action>
+		<transition from="yes" to="new" name="New" id="t3"/>
+		<transition from="nc_ec" to="existing" name="Existing" id="t4"/>-->
+
+
+		<!--<transition from="clicks" to="finds"/>
 		<decision name="Man or woman?" id="d1"/>
 		<action name="Visit mens page" id="a2" image="images/image1.png" color="rgb(13, 107, 189)"/>
 		<action name="Visit womens page" id="a3" image="images/image1.png" color="rgb(13, 107, 189)"/>
@@ -71,27 +119,28 @@
 		<transition from="d1" to="a3" name="woman" id="t2"/>
 		<action name="Check out" id="a4" image="images/image1.png" color="rgb(13, 107, 189)"/>
 		<transition from="a2" to="a4"/>
-		<transition from="a3" to="a4"/>
+		<transition from="a3" to="a4"/>-->
 		
 		
 	<!--Journey map -->
-		<journey name="Man shops shoes" choices="t1" 
-			expectations="To buy functional shoes"/>
-		<journey name="Woman shops shoes" choices="t2" 
-			expectations="To buy expensive shoes"/>
+		<journey name="EC-BSC-BA" choices="t1" 
+			expectations="Existing customer, wants to open a basic bank account"/>
+		<journey name="EC-BSC-BA" choices="t2" 
+			expectations="Existing customer, wants to open a premium bank account"/>
 		
 	</experiencemap>
 </blueprint>
-<participant name="SEO" id="seo" color="rgb(208, 208, 208)"/>
-<participant name="Design" id="design"/>
-<participant name="Legal" id="legal"/>
-<participant name="Customer Management" id="customer"/>
 <participant name="Marketing" id="marketing"/>
-<participant name="Customer success" id="success"/>
+<participant name="SEO" id="seo" color="rgb(208, 208, 208)"/>
 <participant name="Product Management" id="product"/>
 <participant name="Product analyst" id="analyst"/>
-<participant name="Customer service" id="service"/>
+<participant name="Design" id="design"/>
 <participant name="Developers" id="devs"/>
 <participant name="Software engineers" id="engineers"/>
+<participant name="Customer Management" id="customer"/>
+<participant name="Customer success" id="success"/>
+<participant name="Legal" id="legal"/>
+<participant name="Customer service" id="service"/>
+
 
 </_>

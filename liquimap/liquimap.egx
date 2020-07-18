@@ -47,7 +47,8 @@ rule Participant2HTML
 		"stages" = p.getStages(),
 		"steps" = p.getSteps(),
 		"touchpoints" = p.getTouchpoints(),
-		"participants" = Sequence{p}
+		"participants" = Sequence{p},
+		"b" = blueprint
 	}
 	
 }
@@ -63,7 +64,8 @@ rule Stage2HTML
 		"stages" = Sequence{},
 		"steps" = stage.steps,
 		"touchpoints" = stage.steps.touchpoints.flatten(),
-		"participants" = stage.getParticipants()
+		"participants" = stage.getParticipants(),
+		"b" = blueprint
 	}
 	
 }

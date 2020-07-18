@@ -46,7 +46,7 @@
 	[%for (participant in participants) { %]
 	<tr>
 		<td class="participant">
-			<a href="javascript:showView(['Liquimap','Participants','[%=participant.name%]'])">
+			<a href="javascript:showView(['[%=b.name%]','Participants','[%=participant.name%]'])">
 				[%=participant.name%]
 			</a>
 		</td>

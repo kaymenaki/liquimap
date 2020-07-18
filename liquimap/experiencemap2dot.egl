@@ -83,6 +83,6 @@ operation ExperienceMapNode getStyle() {
 }
 
 operation Decision getLabel() {
-	return "";
+	return self.name;
 }
 %]
