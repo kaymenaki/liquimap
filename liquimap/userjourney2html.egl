@@ -106,7 +106,9 @@ operation UserJourney getActions() {
 			actions.add(start);
 		}
 		else {
-			start = start.outgoing.selectOne(t|self.choices.includes(t)).to;
+			var transition = start.outgoing.selectOne(t|self.choices.includes(t));
+			if (transition.isUndefined()) transition = start.outgoing.first();
+			start = transition.to;
 			if (actions.contains(start)) return actions;
 			actions.add(start);
 		}

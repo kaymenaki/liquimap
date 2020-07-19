@@ -131,7 +131,8 @@
 		<action name="Log in info" id="login" image="images/image1.png" color="rgb(13, 107, 189)"/>
 		<transition from="logon" to="security_question" id="t7"/>
 		<!--ADD OTHER PRODUCT-->
-		<action name="Add another product" id="add" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<decision name="Add another product" id="add">
+		</decision>
 		<transition from="login" to="add" id="t9"/>
 		<transition from="security_question" to="add" id="t11"/>
 		<action name="Select product" id="select" image="images/image1.png" color="rgb(13, 107, 189)"/>
@@ -142,7 +143,9 @@
 		
 		
 	<!--Journey map -->
-		<journey name="EC-BSC-BA" choices="t1" 
+		<journey name="NC-BSC-BA" choices="t1, t3, t12" 
+			expectations="Existing customer, wants to open a basic bank account"/>
+		<journey name="OC-BSC-BA" choices="t1, t4, t12" 
 			expectations="Existing customer, wants to open a basic bank account"/>
 		<journey name="EC-BSC-BA" choices="t2" 
 			expectations="Existing customer, wants to open a premium bank account"/>
