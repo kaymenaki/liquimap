@@ -32,6 +32,29 @@ table {
 	filter: brightness(1.15);
 }
 
+.action {
+	padding: 15px 10px;
+	color: white;
+	margin-bottom: 5px;
+	border-right:1px solid white;
+	border-bottom: 1px dashed white;
+}
+
+.action-header {
+	border-bottom: 0px;
+	text-transform: uppercase;
+	padding: 10px;
+	font-size:80%;
+}
+
+.comment {
+	border-bottom: 0px;
+}
+
+.expectation {
+	color: #000000 !important;
+}
+
 .step-no-stage {
 	filter: brightness(1);
 }
@@ -61,11 +84,4 @@ table {
 a {
 	text-decoration: none;
 	color: #333333
-}
-
-.action {
-	padding: 5px;
-	color: white;
-	font-size:80%;
-	text-transform: uppercase;
 }

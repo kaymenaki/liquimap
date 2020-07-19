@@ -24,14 +24,15 @@
 digraph G {
 	node[shape=rectangle, fontname=Tahoma, fontsize=10, fontcolor=white, style=filled, gradientangle="270"]
 	edge[fontname=Tahoma, fontsize=10, fontcolor=grey]
+	graph[nodesep="0.2", ranksep="0.2"]
 	rankdir=LR;
 	
 	[%for (node in nodes) { %]
-	[%=node.getNodeId()%] [label="[%=node.getLabel()%]", shape="[%=node.getShape()%]", fillcolor="[%=node.getFillColor()%]", fontcolor="[%=node.getFontColor()%]", tooltip="[%=node.id%]", style="[%=node.getStyle()%]"];
+	[%=node.getNodeId()%] [label="[%=node.getDotLabel()%]", shape="[%=node.getShape()%]", fillcolor="[%=node.getFillColor()%]", fontcolor="[%=node.getFontColor()%]", tooltip="[%=node.id%]", style="[%=node.getStyle()%]", [%=node.getMargin()%]];
 	[%}%]
 	
 	[%for (transition in transitions) { %]
-	[%=transition.from.getNodeId()%] -> [%=transition.to.getNodeId()%] [label="[%=transition.name%]", tooltip="[%=transition.id%]"];
+	[%=transition.from.getNodeId()%] -> [%=transition.to.getNodeId()%] [label="[%=transition.getLabel()%]", tooltip="[%=transition.id%]"];
 	[%}%]
 	
 }
@@ -50,29 +51,6 @@ operation ExperienceMapNode getShape() {
 	}
 }
 
-operation ExperienceMapNode getFontColor() {
-	if (self.touchpoint.isDefined()) {
-		return "white";
-	}
-	else {
-		return "black";
-	}
-}
-
-operation ExperienceMapNode getFillColor() {
-	if (self.touchpoint.isDefined()) {
-		return self.touchpoint.eContainer().eContainer().colour;
-	}
-	else {
-		if (self.isTypeOf(Decision)) {
-			return "floralwhite";
-		}
-		else {
-			return "white";
-		}
-	}
-}
-
 operation ExperienceMapNode getStyle() {
 	if (self.isTypeOf(Decision)) {
 		return "filled";
@@ -82,7 +60,50 @@ operation ExperienceMapNode getStyle() {
 	}
 }
 
-operation Decision getLabel() {
-	return self.name;
+operation Action getMargin() {
+	return "";
+}
+
+operation Decision getMargin() {
+	return "margin=0.02";
+}
+
+operation Decision getDotLabel() {
+	return (self.name + "").toMultiline();
+}
+
+operation Action getDotLabel() {
+	return (self.getLabel() + "").toMultiline();
+}
+
+operation Transition getLabel() {
+	return (self.name + "").toMultiline();
+}
+
+operation String toMultiline() : String {
+	return self.toMultiline("\\n");
+}
+
+operation String toMultiline(newline : String) : String {
+	var multiline = "";
+	
+	for (line in self.split("\\n")) {
+		var length = 0;
+		for (part in line.split(" ")) {
+			multiline += part + " ";
+			length += part.length();
+			if (length > 4) {
+				multiline += newline;
+				length = 0;
+			}
+		}
+		if (not multiline.endsWith(newline)) multiline += newline;
+		if (hasMore) multiline += "\\n";
+	}
+	if (not multiline.endsWith(newline)) multiline += newline;
+	
+	multiline = multiline.replaceAll('"', '\\\\"');
+	
+	return multiline;
 }
 %]

@@ -16,3 +16,16 @@ operation Action getLabel() {
 	if (self.name.isUndefined() and self.touchpoint.isDefined()) return self.touchpoint.name;
 	else return self.name;
 }
+
+operation ExperienceMapNode getFillColor() {
+	if (self.touchpoint.isDefined()) {
+		return self.touchpoint.eContainer().eContainer().colour;
+	}
+	else {
+		return "#444444";
+	}
+}
+
+operation ExperienceMapNode getFontColor() {
+	return "white";
+}

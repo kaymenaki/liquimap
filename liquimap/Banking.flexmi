@@ -134,7 +134,7 @@
 		</decision>
 		<transition from="login" to="add" id="t9"/>
 		<transition from="security_question" to="add" id="t11"/>
-		<action name="Select product" id="select" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_select"/>
+		<action name="Select additional product" id="select" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_select"/>
 		<transition from="add" to="select" name="Yes" id="t12"/>
 		<transition from="add" to="completion" name="No" id="t13"/>
 		<action name="Application complete" id="completion" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_completion"/>
@@ -142,13 +142,27 @@
 		
 		
 	<!--Journey map -->
-		<journey name="NC-BSC-BA" choices="t1, t3, t12" 
-			expectations="Existing customer, wants to open a basic bank account"/>
-		<journey name="OC-BSC-BA" choices="t1, t4, t12" 
-			expectations="Existing customer, wants to open a basic bank account"/>
-		<journey name="EC-BSC-BA" choices="t2" 
-			expectations="Existing customer, wants to open a premium bank account"/>
-		
+		<journey name="NC-BA-RO-BP" choices="t1, t3, t12" 
+			expectations="New customer, wants to open a basic bank account and register online. Also, wants to check for additional relevant products."/>
+		<journey name="NC-BA-RO" choices="t1, t3, t13" 
+			expectations="New customer, wants to open a basic bank account and register online. Not interested for additional products."/>
+		<journey name="EC-BA-RO-BP" choices="t2, t3, t12" 
+			expectations="Existing customer, wants to open a basic bank account and register online. Also, wants to check for additional relevant products."/>
+		<journey name="EC-BA-RO" choices="t2, t3, t13" 
+			expectations="Existing customer, wants to open a basic bank account and register online. Not interested for additional products."/>
+		<journey name="EC-BA-BP" choices="t2, t5, t12" 
+			expectations="Existing customer, wants to open a basic bank account and is already registered online. Also, wants to check for additional relevant products."/>
+		<journey name="EC-BA" choices="t2, t5, t13" 
+			expectations="Existing customer, wants to open a basic bank account and is already registered online. Not interested for additional products."/>
+		<journey name="NC-BA-BP" choices="t1, t4, t12" 
+			expectations="New customer, wants to open a basic bank account and doesn't use online banking. Also, wants to check for additional relevant products."/>
+		<journey name="NC-BA" choices="t1, t4, t13" 
+			expectations="New customer, wants to open a basic bank account and doesn't use online banking. Not interested for additional products."/>
+		<journey name="EC-BA-BP" choices="t2, t4, t12" 
+			expectations="Existing customer, wants to open a basic bank account and doesn't use online banking. Also, wants to check for additional relevant products."/>
+		<journey name="EC-BA" choices="t2, t4, t13" 
+			expectations="Existing customer, wants to open a basic bank account and doesn't use online banking. Not interested for additional products."/>
+			
 	</experiencemap>
 </blueprint>
 <participant name="Marketing" id="marketing"/>

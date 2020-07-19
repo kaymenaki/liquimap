@@ -8,41 +8,43 @@
 <body>
 [%var actions = journey.getActions();%]
 
-<b>Expectations:</b> [%=journey.expectations%]
-
-<table border="1">
+<table>
 	<tr>
-		<td> </td>
+		<td class="header">Expectations</td>
+		<td colspan="[%=actions.size()-1%]" class="action expectation">[%=journey.expectations%]</td>
+	</tr>
+	<tr>
+		<td class="header">Action</td>
 		[%for (action in actions) { %]
-			<td class="action" style="background-color: [%=action.colour%]">[%=action.getLabel()%]</td>
+			<td class="action action-header" style="background-color: [%=action.getFillColor()%]; color:[%=action.getFontColor()%]">[%=action.getLabel()%]</td>
 		[%}%]
 	</tr>
 	
 	<tr>
 		<td> </td>
 		[%for (action in actions) { %]
-			<td><img src="[%=action.image.isDefined() ? getImage(action.image) : ''%]" style="width:200px"></td>
+			<td class="action"><img src="[%=action.image.isDefined() ? getImage(action.image) : ''%]" style="width:200px"></td>
 		[%}%]
 	</tr>
 	
 	<tr>
 		<td class="header">Mood</td>
 		[%for (action in actions) { %]
-			<td>[%=action.mood%]</td>
+			<td class="action" style="[%=action.getStyle()%]">[%=action.mood%]</td>
 		[%}%]
 	</tr>
 
 	<tr>
 		<td class="header">Emotion</td>
 		[%for (action in actions) { %]
-			<td>[%=action.emotion%]</td>
+			<td class="action" style="[%=action.getStyle()%]">[%=action.emotion%]</td>
 		[%}%]
 	</tr>
 	
 	<tr>
 		<td class="header">Pains and Gains</td>
 		[%for (action in actions) { %]
-			<td>
+			<td class="action" style="[%=action.getStyle()%]">
 			[%if (not action.pains.isEmpty()){%]
 			<b>Pains</b>
 			<ul>
@@ -67,7 +69,7 @@
 	<tr>
 		<td class="header">Opportunities</td>
 		[%for (action in actions) { %]
-			<td>
+			<td class="action" style="[%=action.getStyle()%]">
 			<ul>
 				[%for (opportunity in action.opportunities){%]
 				<li>[%=opportunity%]</li>
@@ -80,7 +82,7 @@
 	<tr>
 		<td class="header">Comments</td>
 		[%for (action in actions) { %]
-			<td>
+			<td class="action comment" style="[%=action.getStyle()%]">
 			[%=action.comments%]
 			</td>
 		[%}%]
@@ -116,5 +118,10 @@ operation UserJourney getActions() {
 	
 	return actions.select(a|a.isTypeOf(Action));
 	
+}
+
+operation Action getStyle() {
+	//return "border-left: 1px solid " + self.getFillColor() + "; border-bottom: 1px dashed " + self.getFillColor();
+	return "filter: brightness(1.25); background-color:" + self.getFillColor();
 }
 %]
