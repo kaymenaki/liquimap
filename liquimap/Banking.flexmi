@@ -41,17 +41,17 @@
 	</stage>
 	<stage name="Setup" colour="#e66b00">
 		<step name="Online registration">
-			<touchpoint name="Online registered?" participants="customer, product"/>
-			<touchpoint name="Log in" participants="customer, success, devs"/>
-			<touchpoint name="Log on info" participants="devs, engineers, customer"/>
-			<touchpoint name="Security question" participants="devs, engineers, customer, legal"/>
+			<touchpoint name="Online registered?" participants="customer, product" id="touchpoint_register"/>
+			<touchpoint name="Log in" participants="customer, success, devs" id="touchpoint_login"/>
+			<touchpoint name="Log on info" participants="devs, engineers, customer" id="touchpoint_logon"/>
+			<touchpoint name="Security question" participants="devs, engineers, customer, legal" id="touchpoint_question"/>
 		</step>
 		<step name="Additional product">
-			<touchpoint name="Add other product" participants="marketing, design, product, analyst, success"/>
-			<touchpoint name="Select product" participants="marketing, design, product, success"/>
+			<touchpoint name="Add other product" participants="marketing, design, product, analyst, success" id="touchpoint_add"/>
+			<touchpoint name="Select product" participants="marketing, design, product, success" id="touchpoint_select"/>
 		</step>
 		<step name="Post">
-			<touchpoint name="Receive supporting material" participants="marketing, product, customer, service"/>
+			<touchpoint name="Receive supporting material" participants="marketing, product, customer, service" id="touchpoint_completion"/>
 		</step>
 	</stage>
 	
@@ -120,24 +120,24 @@
 		<action name="Submit the application" id="submit" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_submit"/>
 		<!--SETUP-->
 		<transition from="submit" to="register_online"/>
-		<decision name="Do you want to register online?" id="register_online">
+		<decision name="Do you want to register online?" id="register_online" touchpoint="touchpoint_register">
 		</decision>
-		<action name="Log on info" id="logon" image="images/image1.png" color="rgb(13, 107, 189)"/>
-		<action name="Security question" id="security_question" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Log on info" id="logon" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_logon"/>
+		<action name="Security question" id="security_question" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_question"/>
 		<transition from="register_online" to="logon" name="Yes" id="t3"/>
 		<transition from="register_online" to="login" name="I am already registered" id="t5"/>
 		<transition from="register_online" to="add" name="No" id="t4"/>
-		<action name="Log in info" id="login" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Log in info" id="login" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_login"/>
 		<transition from="logon" to="security_question" id="t7"/>
 		<!--ADD OTHER PRODUCT-->
-		<decision name="Add another product" id="add">
+		<decision name="Do you want to add another product?" id="add" touchpoint="touchpoint_add">
 		</decision>
 		<transition from="login" to="add" id="t9"/>
 		<transition from="security_question" to="add" id="t11"/>
-		<action name="Select product" id="select" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Select product" id="select" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_select"/>
 		<transition from="add" to="select" name="Yes" id="t12"/>
 		<transition from="add" to="completion" name="No" id="t13"/>
-		<action name="Application complete" id="completion" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Application complete" id="completion" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_completion"/>
 		<transition from="select" to="completion" id="t12"/>
 		
 		
