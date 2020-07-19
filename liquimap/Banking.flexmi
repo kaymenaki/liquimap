@@ -29,14 +29,14 @@
 			<touchpoint name="Other accounts?" participants="design, devs, customer, legal" id="touchpoint_accounts"/>
 		</step>
 		<step name="Verification">
-			<touchpoint name="ID Verification" participants="devs, engineers, customer, legal"/>
-			<touchpoint name="Upload documents" participants="service, devs, engineers, customer, legal"/>
+			<touchpoint name="ID Verification" participants="devs, engineers, customer, legal" id="touchpoint_verify"/>
+			<touchpoint name="Upload documents" participants="service, devs, engineers, customer, legal" id="touchpoint_upload"/>
 		</step>
 		<step name="Review">
-			<touchpoint name="Review application" participants="design, devs, customer"/>
-			<touchpoint name="Edit" participants="design, devs, customer"/>
-			<touchpoint name="Sign" participants="design, devs, customer, legal"/>
-			<touchpoint name="Submit" participants="design, devs, customer, product, legal"/>
+			<touchpoint name="Review application" participants="design, devs, customer" id="touchpoint_review"/>
+			<touchpoint name="Edit" participants="design, devs, customer" id="touchpoint_edit"/>
+			<touchpoint name="Sign" participants="design, devs, customer, legal" id="touchpoint_sign"/>
+			<touchpoint name="Submit" participants="design, devs, customer, product, legal" id="touchpoint_submit"/>
 		</step>
 	</stage>
 	<stage name="Setup" colour="#e66b00">
@@ -58,7 +58,7 @@
 	<!--Experience map-->
 	<experiencemap name="Financial products">
 		<!-- RESEARCH-->
-		<action name="Searches on the web" id="search" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="search_engine">
+		<action name="Searches on the web" id="search" image="images/image1.png" color="rgb(13, 107, 189)">
 			<gain>N/A</gain>
 			<pain>N/A</pain>
 			<emotion>3</emotion>
@@ -73,7 +73,7 @@
 		<action name="Arrives on the landing page" id="landing_page" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_landing">
 		</action>
 		<transition from="landing_page" to="compares"/>
-		<action name="Compares relevant products" id="compares" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_compare" >
+		<action name="Compares relevant products" id="compares" image="images/image1.png" color="rgb(13, 107, 189)">
 		</action>
 		<transition from="compares" to="chooses"/>
 		<action name="Chooses ideal product" id="chooses" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_choose">
@@ -95,31 +95,29 @@
 		<action name="Reads legal information" id="legal_info" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_legal_info">
 		</action>
 		<transition from="legal_info" to="nc_ec"/>
-		<decision name="New or existing customer?" id="nc_ec">
+		<decision name="New or existing customer?" id="nc_ec" touchpoint="nc_ec_touchpoint">
 		</decision>
-		<action name="New" id="new" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="nc_ec_touchpoint"/>
-		<transition from="nc_ec" to="new" name="New" id="t1"/>
-		<action name="Existing" id="existing" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="nc_ec_touchpoint"/>
-		<transition from="nc_ec" to="existing" name="Existing" id="t2"/>
-		<transition from="new" to="personal_details"/>
+		<transition from="nc_ec" to="personal_details" name="New" id="t1"/>
+		<transition from="nc_ec" to="id_verification" name="Existing" id="t2"/>
 		<action name="Personal details" id="personal_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_personal_details"/>
 		<transition from="personal_details" to="financial_details"/>
 		<action name="Financial details" id="financial_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_financial_details"/>
 		<transition from="financial_details" to="other_account"/>
 		<action name="Other accounts" id="other_account" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_accounts"/>
 		<transition from="other_account" to="id_verification"/>
-		<transition from="existing" to="id_verification"/>
-		<action name="Verify your id" id="id_verification" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Verify your id" id="id_verification" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_verify"/>
 		<transition from="id_verification" to="documents"/>
-		<action name="Upload relevant documents" id="documents" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Upload relevant documents" id="documents" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_upload"/>
 		<transition from="documents" to="review"/>
-		<action name="Review the application" id="review" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<decision name="Review the application" id="review" touchpoint="touchpoint_review">
+		</decision>
 		<transition from="review" to="edit"/>
-		<action name="Edit the application" id="edit" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Edit the application" id="edit" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_edit"/>
 		<transition from="edit" to="sign"/>
-		<action name="Sign the application" id="sign" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Sign the application" id="sign" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_sign"/>
 		<transition from="sign" to="submit"/>
-		<action name="Submit the application" id="submit" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="review" to="sign"/>
+		<action name="Submit the application" id="submit" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_submit"/>
 		<!--SETUP-->
 		<transition from="submit" to="register_online"/>
 		<decision name="Do you want to register online?" id="register_online">
