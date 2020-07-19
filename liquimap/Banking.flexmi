@@ -21,7 +21,6 @@
 		</step>
 		<step name="Eligibility">
 			<touchpoint name="New or existing customer?" participants="customer" id="nc_ec_touchpoint"/>
-			<touchpoint name="Online registered?" participants="customer, product"/>
 		</step>
 		<step name="Details">
 			<touchpoint name="Personal details" participants="design, devs, customer"/>
@@ -41,6 +40,8 @@
 	</stage>
 	<stage name="Setup" colour="#e66b00">
 		<step name="Online registration">
+			<touchpoint name="Online registered?" participants="customer, product"/>
+			<touchpoint name="Log in" participants="customer, success, devs"/>
 			<touchpoint name="Log on info" participants="devs, engineers, customer"/>
 			<touchpoint name="Security question" participants="devs, engineers, customer, legal"/>
 		</step>
@@ -76,6 +77,7 @@
 		<transition from="compares" to="chooses"/>
 		<action name="Chooses ideal product" id="chooses" image="images/image1.png" color="rgb(13, 107, 189)">
 		</action>
+		<transition from="chooses" to="welcome"/>
 		<!-- APPLICATION-->
 		<action name="Welcome page" id="welcome" image="images/image1.png" color="rgb(13, 107, 189)">
 			<gain>N/A</gain>
@@ -98,28 +100,45 @@
 		<transition from="nc_ec" to="new" name="New" id="t1"/>
 		<action name="Existing" id="existing" image="images/image1.png" color="rgb(13, 107, 189)"/>
 		<transition from="nc_ec" to="existing" name="Existing" id="t2"/>
-		<decision name="Are you online registered?" id="online_reg">
+		<transition from="new" to="personal_details"/>
+		<action name="Personal details" id="personal_details" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="personal_details" to="financial_details"/>
+		<action name="Financial details" id="financial_details" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="financial_details" to="other_account"/>
+		<action name="Other accounts" id="other_account" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="other_account" to="id_verification"/>
+		<transition from="existing" to="id_verification"/>
+		<action name="Verify your id" id="id_verification" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="id_verification" to="documents"/>
+		<action name="Upload relevant documents" id="documents" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="documents" to="review"/>
+		<action name="Review the application" id="review" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="review" to="edit"/>
+		<action name="Edit the application" id="edit" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="edit" to="sign"/>
+		<action name="Sign the application" id="sign" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="sign" to="submit"/>
+		<action name="Submit the application" id="submit" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<!--SETUP-->
+		<transition from="submit" to="register_online"/>
+		<decision name="Do you want to register online?" id="register_online">
 		</decision>
-		<transition from="existing" to="online_reg" id="t2"/>
-		
-		<!--<transition from="nc_ec" to="new" name="New" id="t1"/>
-		<action name="Yes" id="yes" image="images/image1.png" color="rgb(13, 107, 189)">
-		</action>
-		<action name="No" id="yes" image="images/image1.png" color="rgb(13, 107, 189)">
-		</action>
-		<transition from="yes" to="new" name="New" id="t3"/>
-		<transition from="nc_ec" to="existing" name="Existing" id="t4"/>-->
-
-
-		<!--<transition from="clicks" to="finds"/>
-		<decision name="Man or woman?" id="d1"/>
-		<action name="Visit mens page" id="a2" image="images/image1.png" color="rgb(13, 107, 189)"/>
-		<action name="Visit womens page" id="a3" image="images/image1.png" color="rgb(13, 107, 189)"/>
-		<transition from="d1" to="a2" name="man" id="t1"/>
-		<transition from="d1" to="a3" name="woman" id="t2"/>
-		<action name="Check out" id="a4" image="images/image1.png" color="rgb(13, 107, 189)"/>
-		<transition from="a2" to="a4"/>
-		<transition from="a3" to="a4"/>-->
+		<action name="Log on info" id="logon" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<action name="Security question" id="security_question" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="register_online" to="logon" name="Yes" id="t3"/>
+		<transition from="register_online" to="login" name="I am already registered" id="t5"/>
+		<transition from="register_online" to="add" name="No" id="t4"/>
+		<action name="Log in info" id="login" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="logon" to="security_question" id="t7"/>
+		<!--ADD OTHER PRODUCT-->
+		<action name="Add another product" id="add" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="login" to="add" id="t9"/>
+		<transition from="security_question" to="add" id="t11"/>
+		<action name="Select product" id="select" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="add" to="select" name="Yes" id="t12"/>
+		<transition from="add" to="completion" name="No" id="t13"/>
+		<action name="Application complete" id="completion" image="images/image1.png" color="rgb(13, 107, 189)"/>
+		<transition from="select" to="completion" id="t12"/>
 		
 		
 	<!--Journey map -->
