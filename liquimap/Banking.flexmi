@@ -55,8 +55,8 @@
 		</step>
 	</stage>
 	
-	<!--Experience map-->
-	<experiencemap name="Financial products">
+	<!--User flow-->
+	<userflow name="Financial products">
 		<!-- RESEARCH-->
 		<action name="Searches on the web" id="search" image="images/image1.png" color="rgb(13, 107, 189)">
 			<gain>N/A</gain>
@@ -163,7 +163,7 @@
 		<journey name="EC-BA" choices="t2, t4, t13" 
 			expectations="Existing customer, wants to open a basic bank account and doesn't use online banking. Not interested for additional products."/>
 			
-	</experiencemap>
+	</userflow>
 </blueprint>
 <participant name="Marketing" id="marketing"/>
 <participant name="SEO" id="seo" color="rgb(208, 208, 208)"/>

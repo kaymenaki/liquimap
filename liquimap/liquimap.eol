@@ -17,7 +17,7 @@ operation Action getLabel() {
 	else return self.name;
 }
 
-operation ExperienceMapNode getFillColor() {
+operation UserFlowNode getFillColor() {
 	if (self.touchpoint.isDefined()) {
 		return self.touchpoint.eContainer().eContainer().colour;
 	}
@@ -26,6 +26,6 @@ operation ExperienceMapNode getFillColor() {
 	}
 }
 
-operation ExperienceMapNode getFontColor() {
+operation UserFlowNode getFontColor() {
 	return "white";
 }

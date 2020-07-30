@@ -1,7 +1,7 @@
 [%
 	import 'liquimap.eol';
-	var nodes = map.nodes;
-	var transitions = map.transitions;
+	var nodes = userFlow.nodes;
+	var transitions = userFlow.transitions;
 	
 	if (stage.isDefined()) {
 		var touchpoints = stage.steps.touchpoints.flatten();
@@ -38,11 +38,11 @@ digraph G {
 }
 
 [%
-operation ExperienceMapNode getNodeId() {
+operation UserFlowNode getNodeId() {
 	return "Node" + nodes.indexOf(self);
 }
 
-operation ExperienceMapNode getShape() {
+operation UserFlowNode getShape() {
 	if (self.isTypeOf(Decision)) {
 		return "diamond";
 	}
@@ -51,7 +51,7 @@ operation ExperienceMapNode getShape() {
 	}
 }
 
-operation ExperienceMapNode getStyle() {
+operation UserFlowNode getStyle() {
 	if (self.isTypeOf(Decision)) {
 		return "filled";
 	}

@@ -46,7 +46,7 @@
 	</stage>
 	
 	<!--Experience map-->
-	<experiencemap name="Shop shoes">
+	<userflow name="Shop shoes">
 		<action id="landing-page-action" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="landing-page-touchpoint">
 			<gain>Page loads fast</gain>
 			<pain>Page looks terrible</pain>
@@ -77,7 +77,7 @@
 		<journey name="Woman shops shoes" choices="is-woman" 
 			expectations="To buy expensive shoes"/>
 		
-	</experiencemap>
+	</userflow>
 </blueprint>
 
 <participant name="Marketing/Online Marketing" id="marketing" color="rgb(208, 208, 208)"/>

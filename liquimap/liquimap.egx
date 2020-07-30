@@ -70,28 +70,28 @@ rule Stage2HTML
 	
 }
 
-rule ExperienceMap2Dot 
-	transform map : ExperienceMap {
+rule UserFlow2Dot 
+	transform userFlow : UserFlow {
 
-	template : "experiencemap2dot.egl"
+	template : "userflow2dot.egl"
 
 	parameters : Map {
-		"path" = Sequence{map.eContainer.name, "Experience Map"},
+		"path" = Sequence{userFlow.eContainer.name, "User Flow"},
 		"format" = "graphviz-dot",
 		"stage" = null
 	}
 	
 }
 
-rule StageExperienceMap2Dot 
+rule StageUserFlow2Dot 
 	transform stage : Stage {
 
-	template : "experiencemap2dot.egl"
+	template : "userflow2dot.egl"
 
 	parameters : Map {
-		"path" = Sequence{blueprint.name, "Experience Map", "Stages", stage.name},
+		"path" = Sequence{blueprint.name, "User Flow", "Stages", stage.name},
 		"format" = "graphviz-dot",
-		"map" = blueprint.experienceMap,
+		"userFlow" = blueprint.userflow,
 		"layers" = Sequence {
 			Map {
 				"id" = "adjacent",
@@ -109,7 +109,7 @@ rule UserJourney2HTML
 	template : "userjourney2html.egl"
 	
 	parameters : Map {
-		"path" = Sequence{journey.eContainer().eContainer().name, "Experience Map", "Journeys", journey.name},
+		"path" = Sequence{journey.eContainer().eContainer().name, "User Flow", "Journeys", journey.name},
 		"format" = "html"
 	}
 	
