@@ -1,7 +1,7 @@
 [%
 	import 'liquimap.eol';
-	var nodes = userFlow.nodes;
-	var transitions = userFlow.transitions;
+	var nodes = uem.nodes;
+	var transitions = uem.transitions;
 	
 	if (stage.isDefined()) {
 		var touchpoints = stage.steps.touchpoints.flatten();

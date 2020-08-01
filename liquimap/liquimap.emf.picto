@@ -1,2 +1,22 @@
 <?nsuri picto?>
-<picto transformation="platform:/resource/org.eclipse.epsilon.examples.picto.ecore/ecore2vis/ecore.egx"/>
+<picto transformation="platform:/resource/org.eclipse.epsilon.examples.picto.ecore/ecore2vis/ecore.egx">
+	<view path="Model, Custom, Blueprint" type="ClassDiagram">
+        <variable name="classNames" values="UserExperienceMap, Stage, Step, Touchpoint, Participant"/>
+    </view>
+
+    <view path="Model, Custom, User Flow" type="ClassDiagram">
+    	<variable name="classNames" values="UserExperienceMap, UserFlowNode, Action, Transition, Decision, Touchpoint"/>
+    	<parameter name="clusters">
+			<item values="Transition, UserFlowNode"/>
+		</parameter>
+    </view>
+    
+    <view path="Model, Custom, User Journey" type="ClassDiagram">
+    	<variable name="classNames" values="UserExperienceMap, UserJourney, Persona, Transition"/>
+    	<parameter name="hide" values="UserExperienceMap.transitions"/>
+    	<parameter name="clusters">
+			<item values="Transition, UserJourney"/>
+		</parameter>
+		<parameter name="rerank" value="false"/>
+    </view>
+</picto>

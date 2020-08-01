@@ -3,10 +3,14 @@ package liquimap;
 
 // Blueprint-related part of the language
 
-class Blueprint{
+class UserExperienceMap {
 	attr String name;
 	val Stage[*] stages;
-	val UserFlow userflow;
+	val Participant[*] participants;
+	val UserFlowNode[*] nodes;
+	val Transition[*] transitions;
+	val UserJourney[*] journeys;
+	val Persona[*] personas;
 }
 
 class Stage {
@@ -35,14 +39,6 @@ class Participant {
 }
 
 // Experience map-related part of the language
-
-class UserFlow {
-	id attr String ~id;
-	attr String name;
-	val UserFlowNode[*] nodes;
-	val Transition[*] transitions;
-	val UserJourney[*] journeys;
-}
 
 abstract class UserFlowNode {
 	id attr String ~id;
@@ -81,6 +77,12 @@ class UserJourney {
 	attr String scenario;
 	attr String expectations;
 	ref Transition[*] choices;
+	ref Persona persona;
 }
 
-
+class Persona {
+	id attr String ~id;
+	attr String name;
+	attr String photo;
+	attr String profile;
+}

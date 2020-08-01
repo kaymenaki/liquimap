@@ -3,7 +3,7 @@
 <_>
 
 <!--Blueprint -->
-<blueprint name="Financial products">
+<userexperiencemap name="Financial products">
 <stage name="Research" colour="#1087ef">
 		<step name="Wants to find new financial product">
 			<touchpoint name="Search engine" participants="marketing, seo" id="search_engine"/>
@@ -56,126 +56,123 @@
 	</stage>
 	
 	<!--User flow-->
-	<userflow name="Financial products">
-		<!-- RESEARCH-->
-		<action name="Searches on the web" id="search" image="images/image1.png" color="rgb(13, 107, 189)">
-			<gain>N/A</gain>
-			<pain>N/A</pain>
-			<emotion>3</emotion>
-			<mood>N/A</mood>
-			<opportunity>N/A</opportunity>
-			<comment>N/A</comment>
-		</action>
-		<transition from="search" to="clicks"/>
-		<action name="Clicks on the website" id="clicks" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_website">
-		</action>
-		<transition from="clicks" to="landing_page"/>
-		<action name="Arrives on the landing page" id="landing_page" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_landing">
-		</action>
-		<transition from="landing_page" to="compares"/>
-		<action name="Compares relevant products" id="compares" image="images/image1.png" color="rgb(13, 107, 189)">
-		</action>
-		<transition from="compares" to="chooses"/>
-		<action name="Chooses ideal product" id="chooses" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_choose">
-		</action>
-		<transition from="chooses" to="welcome"/>
-		<!-- APPLICATION-->
-		<action name="Welcome page" id="welcome" image="images/image1.png" color="rgb(13, 107, 189)">
-			<gain>N/A</gain>
-			<pain>N/A</pain>
-			<emotion>3</emotion>
-			<mood>N/A</mood>
-			<opportunity>N/A</opportunity>
-			<comment>N/A</comment>
-		</action>
-		<transition from="welcome" to="product_info"/>
-		<action name="Reads product information" id="product_info" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_product_info">
-		</action>
-		<transition from="product_info" to="legal_info"/>
-		<action name="Reads legal information" id="legal_info" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_legal_info">
-		</action>
-		<transition from="legal_info" to="nc_ec"/>
-		<decision name="New or existing customer?" id="nc_ec" touchpoint="nc_ec_touchpoint">
-		</decision>
-		<transition from="nc_ec" to="personal_details" name="New" id="t1"/>
-		<transition from="nc_ec" to="id_verification" name="Existing" id="t2"/>
-		<action name="Personal details" id="personal_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_personal_details"/>
-		<transition from="personal_details" to="financial_details"/>
-		<action name="Financial details" id="financial_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_financial_details"/>
-		<transition from="financial_details" to="other_account"/>
-		<action name="Other accounts" id="other_account" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_accounts"/>
-		<transition from="other_account" to="id_verification"/>
-		<action name="Verify your id" id="id_verification" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_verify"/>
-		<transition from="id_verification" to="documents"/>
-		<action name="Upload relevant documents" id="documents" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_upload"/>
-		<transition from="documents" to="review"/>
-		<decision name="Review the application" id="review" touchpoint="touchpoint_review">
-		</decision>
-		<transition from="review" to="edit"/>
-		<action name="Edit the application" id="edit" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_edit"/>
-		<transition from="edit" to="sign"/>
-		<action name="Sign the application" id="sign" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_sign"/>
-		<transition from="sign" to="submit"/>
-		<transition from="review" to="sign"/>
-		<action name="Submit the application" id="submit" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_submit"/>
-		<!--SETUP-->
-		<transition from="submit" to="register_online"/>
-		<decision name="Do you want to register online?" id="register_online" touchpoint="touchpoint_register">
-		</decision>
-		<action name="Log on info" id="logon" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_logon"/>
-		<action name="Security question" id="security_question" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_question"/>
-		<transition from="register_online" to="logon" name="Yes" id="t3"/>
-		<transition from="register_online" to="login" name="I am already registered" id="t5"/>
-		<transition from="register_online" to="add" name="No" id="t4"/>
-		<action name="Log in info" id="login" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_login"/>
-		<transition from="logon" to="security_question" id="t7"/>
-		<!--ADD OTHER PRODUCT-->
-		<decision name="Do you want to add another product?" id="add" touchpoint="touchpoint_add">
-		</decision>
-		<transition from="login" to="add" id="t9"/>
-		<transition from="security_question" to="add" id="t11"/>
-		<action name="Select additional product" id="select" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_select"/>
-		<transition from="add" to="select" name="Yes" id="t12"/>
-		<transition from="add" to="completion" name="No" id="t13"/>
-		<action name="Application complete" id="completion" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_completion"/>
-		<transition from="select" to="completion" id="t12"/>
-		
-		
-	<!--Journey map -->
-		<journey name="NC-BA-RO-BP" choices="t1, t3, t12" 
-			expectations="New customer, wants to open a basic bank account and register online. Also, wants to check for additional relevant products."/>
-		<journey name="NC-BA-RO" choices="t1, t3, t13" 
-			expectations="New customer, wants to open a basic bank account and register online. Not interested for additional products."/>
-		<journey name="EC-BA-RO-BP" choices="t2, t3, t12" 
-			expectations="Existing customer, wants to open a basic bank account and register online. Also, wants to check for additional relevant products."/>
-		<journey name="EC-BA-RO" choices="t2, t3, t13" 
-			expectations="Existing customer, wants to open a basic bank account and register online. Not interested for additional products."/>
-		<journey name="EC-BA-BP" choices="t2, t5, t12" 
-			expectations="Existing customer, wants to open a basic bank account and is already registered online. Also, wants to check for additional relevant products."/>
-		<journey name="EC-BA" choices="t2, t5, t13" 
-			expectations="Existing customer, wants to open a basic bank account and is already registered online. Not interested for additional products."/>
-		<journey name="NC-BA-BP" choices="t1, t4, t12" 
-			expectations="New customer, wants to open a basic bank account and doesn't use online banking. Also, wants to check for additional relevant products."/>
-		<journey name="NC-BA" choices="t1, t4, t13" 
-			expectations="New customer, wants to open a basic bank account and doesn't use online banking. Not interested for additional products."/>
-		<journey name="EC-BA-BP" choices="t2, t4, t12" 
-			expectations="Existing customer, wants to open a basic bank account and doesn't use online banking. Also, wants to check for additional relevant products."/>
-		<journey name="EC-BA" choices="t2, t4, t13" 
-			expectations="Existing customer, wants to open a basic bank account and doesn't use online banking. Not interested for additional products."/>
-			
-	</userflow>
-</blueprint>
-<participant name="Marketing" id="marketing"/>
-<participant name="SEO" id="seo" color="rgb(208, 208, 208)"/>
-<participant name="Product Management" id="product"/>
-<participant name="Product analyst" id="analyst"/>
-<participant name="Design" id="design"/>
-<participant name="Developers" id="devs"/>
-<participant name="Software engineers" id="engineers"/>
-<participant name="Customer Management" id="customer"/>
-<participant name="Customer success" id="success"/>
-<participant name="Legal" id="legal"/>
-<participant name="Customer service" id="service"/>
+	<!-- RESEARCH-->
+	<action name="Searches on the web" id="search" image="images/image1.png" color="rgb(13, 107, 189)">
+		<gain>N/A</gain>
+		<pain>N/A</pain>
+		<emotion>3</emotion>
+		<mood>N/A</mood>
+		<opportunity>N/A</opportunity>
+		<comment>N/A</comment>
+	</action>
+	<transition from="search" to="clicks"/>
+	<action name="Clicks on the website" id="clicks" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_website">
+	</action>
+	<transition from="clicks" to="landing_page"/>
+	<action name="Arrives on the landing page" id="landing_page" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_landing">
+	</action>
+	<transition from="landing_page" to="compares"/>
+	<action name="Compares relevant products" id="compares" image="images/image1.png" color="rgb(13, 107, 189)">
+	</action>
+	<transition from="compares" to="chooses"/>
+	<action name="Chooses ideal product" id="chooses" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_choose">
+	</action>
+	<transition from="chooses" to="welcome"/>
+	<!-- APPLICATION-->
+	<action name="Welcome page" id="welcome" image="images/image1.png" color="rgb(13, 107, 189)">
+		<gain>N/A</gain>
+		<pain>N/A</pain>
+		<emotion>3</emotion>
+		<mood>N/A</mood>
+		<opportunity>N/A</opportunity>
+		<comment>N/A</comment>
+	</action>
+	<transition from="welcome" to="product_info"/>
+	<action name="Reads product information" id="product_info" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_product_info">
+	</action>
+	<transition from="product_info" to="legal_info"/>
+	<action name="Reads legal information" id="legal_info" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_legal_info">
+	</action>
+	<transition from="legal_info" to="nc_ec"/>
+	<decision name="New or existing customer?" id="nc_ec" touchpoint="nc_ec_touchpoint">
+	</decision>
+	<transition from="nc_ec" to="personal_details" name="New" id="t1"/>
+	<transition from="nc_ec" to="id_verification" name="Existing" id="t2"/>
+	<action name="Personal details" id="personal_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_personal_details"/>
+	<transition from="personal_details" to="financial_details"/>
+	<action name="Financial details" id="financial_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_financial_details"/>
+	<transition from="financial_details" to="other_account"/>
+	<action name="Other accounts" id="other_account" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_accounts"/>
+	<transition from="other_account" to="id_verification"/>
+	<action name="Verify your id" id="id_verification" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_verify"/>
+	<transition from="id_verification" to="documents"/>
+	<action name="Upload relevant documents" id="documents" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_upload"/>
+	<transition from="documents" to="review"/>
+	<decision name="Review the application" id="review" touchpoint="touchpoint_review">
+	</decision>
+	<transition from="review" to="edit"/>
+	<action name="Edit the application" id="edit" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_edit"/>
+	<transition from="edit" to="sign"/>
+	<action name="Sign the application" id="sign" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_sign"/>
+	<transition from="sign" to="submit"/>
+	<transition from="review" to="sign"/>
+	<action name="Submit the application" id="submit" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_submit"/>
+	<!--SETUP-->
+	<transition from="submit" to="register_online"/>
+	<decision name="Do you want to register online?" id="register_online" touchpoint="touchpoint_register">
+	</decision>
+	<action name="Log on info" id="logon" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_logon"/>
+	<action name="Security question" id="security_question" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_question"/>
+	<transition from="register_online" to="logon" name="Yes" id="t3"/>
+	<transition from="register_online" to="login" name="I am already registered" id="t5"/>
+	<transition from="register_online" to="add" name="No" id="t4"/>
+	<action name="Log in info" id="login" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_login"/>
+	<transition from="logon" to="security_question" id="t7"/>
+	<!--ADD OTHER PRODUCT-->
+	<decision name="Do you want to add another product?" id="add" touchpoint="touchpoint_add">
+	</decision>
+	<transition from="login" to="add" id="t9"/>
+	<transition from="security_question" to="add" id="t11"/>
+	<action name="Select additional product" id="select" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_select"/>
+	<transition from="add" to="select" name="Yes" id="t12"/>
+	<transition from="add" to="completion" name="No" id="t13"/>
+	<action name="Application complete" id="completion" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_completion"/>
+	<transition from="select" to="completion" id="t12"/>
+	
+	
+<!--Journey map -->
+	<journey name="NC-BA-RO-BP" choices="t1, t3, t12" 
+		expectations="New customer, wants to open a basic bank account and register online. Also, wants to check for additional relevant products."/>
+	<journey name="NC-BA-RO" choices="t1, t3, t13" 
+		expectations="New customer, wants to open a basic bank account and register online. Not interested for additional products."/>
+	<journey name="EC-BA-RO-BP" choices="t2, t3, t12" 
+		expectations="Existing customer, wants to open a basic bank account and register online. Also, wants to check for additional relevant products."/>
+	<journey name="EC-BA-RO" choices="t2, t3, t13" 
+		expectations="Existing customer, wants to open a basic bank account and register online. Not interested for additional products."/>
+	<journey name="EC-BA-BP" choices="t2, t5, t12" 
+		expectations="Existing customer, wants to open a basic bank account and is already registered online. Also, wants to check for additional relevant products."/>
+	<journey name="EC-BA" choices="t2, t5, t13" 
+		expectations="Existing customer, wants to open a basic bank account and is already registered online. Not interested for additional products."/>
+	<journey name="NC-BA-BP" choices="t1, t4, t12" 
+		expectations="New customer, wants to open a basic bank account and doesn't use online banking. Also, wants to check for additional relevant products."/>
+	<journey name="NC-BA" choices="t1, t4, t13" 
+		expectations="New customer, wants to open a basic bank account and doesn't use online banking. Not interested for additional products."/>
+	<journey name="EC-BA-BP" choices="t2, t4, t12" 
+		expectations="Existing customer, wants to open a basic bank account and doesn't use online banking. Also, wants to check for additional relevant products."/>
+	<journey name="EC-BA" choices="t2, t4, t13" 
+		expectations="Existing customer, wants to open a basic bank account and doesn't use online banking. Not interested for additional products."/>
+	
+	<participant name="Marketing" id="marketing"/>
+	<participant name="SEO" id="seo" color="rgb(208, 208, 208)"/>
+	<participant name="Product Management" id="product"/>
+	<participant name="Product analyst" id="analyst"/>
+	<participant name="Design" id="design"/>
+	<participant name="Developers" id="devs"/>
+	<participant name="Software engineers" id="engineers"/>
+	<participant name="Customer Management" id="customer"/>
+	<participant name="Customer success" id="success"/>
+	<participant name="Legal" id="legal"/>
+	<participant name="Customer service" id="service"/>
 
-
+</userexperiencemap>
 </_>

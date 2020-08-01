@@ -1,14 +1,14 @@
 pre {
-	var blueprint = Blueprint.all.first();
+	var uem = UserExperienceMap.all.first();
 }
 
-rule Blueprint2HTML 
-	transform b : Blueprint {
+rule Blueprint 
+	transform uem : UserExperienceMap {
 
-	template : "blueprint2html.egl"
+	template : "blueprint.egl"
 
 	parameters : Map {
-		"path" = Sequence{b.name},
+		"path" = Sequence{uem.name, "Blueprint"},
 		"format" = "html",
 		"stages" = Stage.all,
 		"steps" = Step.all,
@@ -24,13 +24,13 @@ rule Blueprint2HTML
 	
 }
 
-rule Blueprint2Sankey 
-	transform b : Blueprint {
+rule Sankey 
+	transform uem : UserExperienceMap {
 
-	template : "blueprint2sankey.egl"
+	template : "sankey.egl"
 
 	parameters : Map {
-		"path" = Sequence{b.name, "Sankey"},
+		"path" = Sequence{uem.name, "Sankey"},
 		"format" = "html"
 	}
 	
@@ -39,16 +39,16 @@ rule Blueprint2Sankey
 rule Participant2HTML
 	transform p : Participant {
 	
-	template : "blueprint2html.egl"
+	template : "blueprint.egl"
 	
 	parameters : Map {
-		"path" = Sequence{blueprint.name, "Participants", p.name},
+		"path" = Sequence{uem.name, "Blueprint", "Participants", p.name},
 		"format" = "html",
 		"stages" = p.getStages(),
 		"steps" = p.getSteps(),
 		"touchpoints" = p.getTouchpoints(),
 		"participants" = Sequence{p},
-		"b" = blueprint
+		"uem" = uem
 	}
 	
 }
@@ -56,60 +56,60 @@ rule Participant2HTML
 rule Stage2HTML
 	transform stage : Stage {
 	
-	template : "blueprint2html.egl"
+	template : "blueprint.egl"
 	
 	parameters : Map {
-		"path" = Sequence{stage.eContainer().name, "Stages", stage.name},
+		"path" = Sequence{stage.eContainer().name, "Blueprint", "Stages", stage.name},
 		"format" = "html",
 		"stages" = Sequence{},
 		"steps" = stage.steps,
 		"touchpoints" = stage.steps.touchpoints.flatten(),
 		"participants" = stage.getParticipants(),
-		"b" = blueprint
+		"uem" = uem
 	}
 	
 }
 
-rule UserFlow2Dot 
-	transform userFlow : UserFlow {
+rule UserFlow 
+	transform uem : UserExperienceMap {
 
-	template : "userflow2dot.egl"
+	template : "userflow.egl"
 
 	parameters : Map {
-		"path" = Sequence{userFlow.eContainer.name, "User Flow"},
+		"path" = Sequence{uem.name, "User Flow"},
 		"format" = "graphviz-dot",
 		"stage" = null
 	}
 	
 }
 
-rule StageUserFlow2Dot 
+rule StageUserFlow 
 	transform stage : Stage {
 
-	template : "userflow2dot.egl"
+	template : "userflow.egl"
 
 	parameters : Map {
-		"path" = Sequence{blueprint.name, "User Flow", "Stages", stage.name},
+		"path" = Sequence{uem.name, "User Flow", "Stages", stage.name},
 		"format" = "graphviz-dot",
-		"userFlow" = blueprint.userflow,
 		"layers" = Sequence {
 			Map {
 				"id" = "adjacent",
 				"title" = "Adjacent nodes",
 				"active" = false
 			}
-		}
+		},
+		"uem" = uem
 	}
 	
 }
 
-rule UserJourney2HTML
+rule UserJourney
 	transform journey : UserJourney {
 	
-	template : "userjourney2html.egl"
+	template : "userjourney.egl"
 	
 	parameters : Map {
-		"path" = Sequence{journey.eContainer().eContainer().name, "User Flow", "Journeys", journey.name},
+		"path" = Sequence{journey.eContainer().name, "User Flow", "Journeys", journey.name},
 		"format" = "html"
 	}
 	
