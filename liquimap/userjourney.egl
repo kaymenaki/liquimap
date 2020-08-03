@@ -6,7 +6,7 @@
 </head>
 
 <body>
-[%var actions = journey.getActions();%]
+[%var actions = journey.getActions(stage);%]
 
 <table>
 	<tr>
@@ -93,7 +93,7 @@
 </html>
 
 [%
-operation UserJourney getActions() {
+operation UserJourney getActions(stage: Stage) {
 	
 	var start = self.eContainer().nodes.selectOne(n|n.incoming.isEmpty());
 	var actions : Sequence;
@@ -116,8 +116,16 @@ operation UserJourney getActions() {
 		}
 	}
 	
-	return actions.select(a|a.isTypeOf(Action));
 	
+	actions = actions.select(a|a.isTypeOf(Action));
+	
+	if (stage.isDefined()) actions = actions.select(a|stage.owns(a));
+	
+	return actions;
+}
+
+operation Stage owns(action : Action) {
+	return self.steps.touchpoints.flatten().includes(action.touchpoint);
 }
 
 operation Action getStyle() {

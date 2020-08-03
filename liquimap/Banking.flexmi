@@ -98,11 +98,11 @@
 	</decision>
 	<transition from="nc_ec" to="personal_details" name="New" id="t1"/>
 	<transition from="nc_ec" to="id_verification" name="Existing" id="t2"/>
-	<action name="Personal details" id="personal_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_personal_details"/>
+	<action name="Personal details" id="personal_details" image="images/personal-details.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_personal_details"/>
 	<transition from="personal_details" to="financial_details"/>
-	<action name="Financial details" id="financial_details" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_financial_details"/>
+	<action name="Financial details" id="financial_details" image="images/financial-details.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_financial_details"/>
 	<transition from="financial_details" to="other_account"/>
-	<action name="Other accounts" id="other_account" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_accounts"/>
+	<action name="Other accounts" id="other_account" image="images/other-accounts.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_accounts"/>
 	<transition from="other_account" to="id_verification"/>
 	<action name="Verify your id" id="id_verification" image="images/verify-id.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_verify"/>
 	<transition from="id_verification" to="documents"/>
@@ -121,8 +121,8 @@
 	<transition from="submit" to="register_online"/>
 	<decision name="Do you want to register online?" id="register_online" touchpoint="touchpoint_register">
 	</decision>
-	<action name="Log on info" id="logon" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_logon"/>
-	<action name="Security question" id="security_question" image="images/image1.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_question"/>
+	<action name="Log on info" id="logon" image="images/login.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_logon"/>
+	<action name="Security question" id="security_question" image="images/security-question.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_question"/>
 	<transition from="register_online" to="logon" name="Yes" id="t3"/>
 	<transition from="register_online" to="login" name="I am already registered" id="t5"/>
 	<transition from="register_online" to="add" name="No" id="t4"/>

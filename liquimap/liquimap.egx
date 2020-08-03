@@ -1,5 +1,14 @@
 pre {
 	var uem = UserExperienceMap.all.first();
+	var userJourneyStages : Sequence;
+	for (journey in UserJourney.all) {
+		for (stage in Stage.all) {
+			var userJourneyStage : Sequence;
+			userJourneyStage.~journey = journey;
+			userJourneyStage.~stage = stage;
+			userJourneyStages.add(userJourneyStage);
+		}
+	}
 }
 
 rule Blueprint 
@@ -36,7 +45,7 @@ rule Sankey
 	
 }
 
-rule Participant2HTML
+rule BlueprintParticipant
 	transform p : Participant {
 	
 	template : "blueprint.egl"
@@ -53,7 +62,7 @@ rule Participant2HTML
 	
 }
 
-rule Stage2HTML
+rule BlueprintStage
 	transform stage : Stage {
 	
 	template : "blueprint.egl"
@@ -110,7 +119,22 @@ rule UserJourney
 	
 	parameters : Map {
 		"path" = Sequence{journey.eContainer().name, "User Flow", "Journeys", journey.name},
-		"format" = "html"
+		"format" = "html",
+		"stage" = null
+	}
+	
+}
+
+rule UserJourneyStage
+	transform userJourneyStage in: userJourneyStages {
+	
+	template : "userjourney.egl"
+	
+	parameters : Map {
+		"path" = Sequence{userJourneyStage.~journey.eContainer().name, "User Flow", "Journeys", userJourneyStage.~journey.name, "Stages", userJourneyStage.~stage.name},
+		"format" = "html",
+		"journey" = userJourneyStage.~journey,
+		"stage" = userJourneyStage.~stage
 	}
 	
 }
