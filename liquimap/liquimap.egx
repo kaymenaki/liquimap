@@ -120,7 +120,8 @@ rule UserJourney
 	parameters : Map {
 		"path" = Sequence{journey.eContainer().name, "User Flow", "Journeys", journey.name},
 		"format" = "html",
-		"stage" = null
+		"stage" = null,
+		"uem" = uem
 	}
 	
 }
@@ -134,7 +135,8 @@ rule UserJourneyStage
 		"path" = Sequence{userJourneyStage.~journey.eContainer().name, "User Flow", "Journeys", userJourneyStage.~journey.name, "Stages", userJourneyStage.~stage.name},
 		"format" = "html",
 		"journey" = userJourneyStage.~journey,
-		"stage" = userJourneyStage.~stage
+		"stage" = userJourneyStage.~stage,
+		"uem" = uem                                                                                                                                                                  
 	}
 	
 }

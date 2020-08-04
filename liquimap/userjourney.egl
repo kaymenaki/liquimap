@@ -3,6 +3,7 @@
 <head>
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 <link rel="stylesheet" href="file:[%=getImage("liquimap.css") + "?" + 1.to(10000).random()%]"/>
+<link rel="stylesheet" href="file:[%=getImage(uem.theme+".css") + "?" + 1.to(10000).random()%]"/>
 </head>
 
 <body>

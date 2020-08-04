@@ -3,7 +3,7 @@
 <_>
 
 <!--Blueprint -->
-<userexperiencemap name="Financial products">
+<userexperiencemap name="Financial products" theme="liquimap-theme">
 <stage name="Research" colour="#1087ef">
 		<step name="Wants to find new financial product">
 			<touchpoint name="Search engine" participants="marketing, seo" id="search_engine"/>

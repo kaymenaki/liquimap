@@ -5,6 +5,7 @@ package liquimap;
 
 class UserExperienceMap {
 	attr String name;
+	attr String theme;
 	val Stage[*] stages;
 	val Participant[*] participants;
 	val UserFlowNode[*] nodes;
