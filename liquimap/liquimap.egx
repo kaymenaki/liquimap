@@ -1,4 +1,3 @@
-//This is the first user experience map
 pre {
 	var uem = UserExperienceMap.all.first();
 	var userJourneyStages : Sequence;

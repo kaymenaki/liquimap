@@ -84,6 +84,8 @@ class UserJourney {
 class Persona {
 	id attr String ~id;
 	attr String name;
+	attr String age;
+	attr String occupation;
 	attr String photo;
 	attr String profile;
 }

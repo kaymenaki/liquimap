@@ -10,6 +10,14 @@
 [%var actions = journey.getActions(stage);%]
 
 <table>
+	
+	[%if (journey.persona.asVar("persona").isDefined()){%]
+	<tr>
+		<td class="header" ><img style="width:100%" src="[%=getImage(persona.photo)%]"></img></td>
+		<td colspan="2"> <b>[%=persona.name%], [%=persona.age%], [%=persona.occupation%]</b> <p>[%=persona.profile%]</p> </td>
+	</tr>
+	[%}%]
+
 	<tr>
 		<td class="header">Expectations</td>
 		<td colspan="[%=actions.size()-1%]" class="action expectation">[%=journey.expectations%]</td>
@@ -130,7 +138,6 @@ operation Stage owns(action : Action) {
 }
 
 operation Action getStyle() {
-	//return "border-left: 1px solid " + self.getFillColor() + "; border-bottom: 1px dashed " + self.getFillColor();
 	return "filter: brightness(1.25); background-color:" + self.getFillColor();
 }
 %]

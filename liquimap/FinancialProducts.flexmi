@@ -3,7 +3,7 @@
 <_>
 
 <!--Blueprint -->
-<userexperiencemap name="Financial products" theme="liquimap-theme">
+<userexperiencemap name="Financial products">
 <stage name="Research" colour="#1087ef">
 		<step name="Wants to find new financial product">
 			<touchpoint name="Search engine" participants="marketing, seo" id="search_engine"/>
@@ -58,37 +58,54 @@
 	<!--User flow-->
 	<!-- RESEARCH-->
 	<action name="Searches on the web" id="search" image="images/search.png" color="rgb(13, 107, 189)">
-		<gain>N/A</gain>
-		<pain>N/A</pain>
-		<emotion>3</emotion>
-		<mood>N/A</mood>
-		<opportunity>N/A</opportunity>
-		<comment>N/A</comment>
+		<gain>Our products are available online</gain>
+		<emotion>0</emotion>
+		<mood>He is searching online on his smartphone</mood>
 	</action>
 	<transition from="search" to="clicks"/>
 	<action name="Clicks on the website" id="clicks" image="images/results.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_website">
+		<gain>We offer a relevant product</gain>
+		<pain>We are ranking 3rd in the Google search results</pain>
+		<emotion>1</emotion>
+		<mood>Happy he found the desired product</mood>
+		<opportunity>Focus on SEO</opportunity>
+		<comment>More work needs on the SEO side so we can rank higher on Google search</comment>
 	</action>
 	<transition from="clicks" to="landing_page"/>
 	<action name="Arrives on the landing page" id="landing_page" image="images/landing.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_landing">
+		<pain>The customer has to scroll to find the right product</pain>
+		<emotion>-1</emotion>
+		<mood>The product he is interested in, isn't displayed on the first screen</mood>
+		<opportunity>We need to improve on the UI</opportunity>
+		<comment>Have we designed the website with mobile first focus?</comment>
 	</action>
 	<transition from="landing_page" to="compares"/>
 	<action name="Compares relevant products" id="compares" image="images/relevant.png" color="rgb(13, 107, 189)">
+		<gain>Good marketing planning</gain>
+		<emotion>1</emotion>
+		<mood>He is happy he found an alternative product which offers a credit card</mood>
+		<opportunity>Make the comparative page available to other products</opportunity>
 	</action>
 	<transition from="compares" to="chooses"/>
 	<action name="Chooses ideal product" id="chooses" image="images/start.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_choose">
+		<gain>We offer online account opening</gain>
+		<pain>We are asking the customer to have a few documents available</pain>
+		<emotion>0</emotion>
+		<mood>He can start the application online, which makes him happy, however he has to gather all the relevant documents first</mood>
+		<opportunity>Reduce the number of documents we are asking at this stage</opportunity>
 	</action>
 	<transition from="chooses" to="welcome"/>
 	<!-- APPLICATION-->
 	<action name="Welcome page" id="welcome" image="images/start.png" color="rgb(13, 107, 189)">
-		<gain>N/A</gain>
-		<pain>N/A</pain>
-		<emotion>3</emotion>
-		<mood>N/A</mood>
-		<opportunity>N/A</opportunity>
-		<comment>N/A</comment>
 	</action>
 	<transition from="welcome" to="product_info"/>
 	<action name="Reads product information" id="product_info" image="images/product-info.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_product_info">
+		<gain>We offer online products</gain>
+		<pain>We are ranking 3rd in the Google search</pain>
+		<emotion>1</emotion>
+		<mood>He is willing to open an account online</mood>
+		<opportunity>Focus on SEO</opportunity>
+		<comment>N/A</comment>
 	</action>
 	<transition from="product_info" to="legal_info"/>
 	<action name="Reads legal information" id="legal_info" image="images/legal-info.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_legal_info">
@@ -141,7 +158,7 @@
 	
 	
 <!--Journey map -->
-	<journey name="NC-BA-RO-BP" choices="t1, t3, t12" 
+	<journey name="NC-BA-RO-BP" choices="t1, t3, t12" persona="john-doe"
 		expectations="New customer, wants to open a basic bank account and register online. Also, wants to check for additional relevant products."/>
 	<journey name="NC-BA-RO" choices="t1, t3, t13" 
 		expectations="New customer, wants to open a basic bank account and register online. Not interested for additional products."/>
@@ -173,6 +190,10 @@
 	<participant name="Customer success" id="success"/>
 	<participant name="Legal" id="legal"/>
 	<participant name="Customer service" id="service"/>
-
+	
+	<persona name="John Doe" age="39" occupation="Teacher" photo="images/placeholder.png" id="john-doe">
+		<profile>A tech-savvy customer who wants to open an account online.</profile>
+	</persona>  
+	
 </userexperiencemap>
 </_>
