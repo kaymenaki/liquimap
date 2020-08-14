@@ -117,31 +117,71 @@
 	</decision>
 	<transition from="nc_ec" to="personal_details" name="New" id="t1"/>
 	<transition from="nc_ec" to="id_verification" name="Existing" id="t2"/>
-	<action name="Personal details" id="personal_details" image="images/personal-details.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_personal_details"/>
+	<action name="Personal details" id="personal_details" image="images/personal-details.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_personal_details">
+		<pain>Too much information</pain>
+		<emotion>0</emotion>
+		<opportunity>Focus on SEO</opportunity>
+	</action>
 	<transition from="personal_details" to="financial_details"/>
-	<action name="Financial details" id="financial_details" image="images/financial-details.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_financial_details"/>
+	<action name="Financial details" id="financial_details" image="images/financial-details.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_financial_details">
+		<emotion>0</emotion>
+		<mood>He is happy to share financial details, given that everythign is available on other banks</mood>
+	</action>
 	<transition from="financial_details" to="other_account"/>
-	<action name="Other accounts" id="other_account" image="images/other-accounts.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_accounts"/>
+	<action name="Other accounts" id="other_account" image="images/other-accounts.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_accounts">
+		<pain>Needs to track all the other account he has</pain>
+		<emotion>-1</emotion>
+		<opportunity>Is there any financial crossplatform on the market so we can run this on the backend</opportunity>
+	</action>
 	<transition from="other_account" to="id_verification"/>
-	<action name="Verify your id" id="id_verification" image="images/verify-id.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_verify"/>
+	<action name="Verify your id" id="id_verification" image="images/verify-id.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_verify">
+		<gain>Ask for veryfication</gain>
+		<emotion>1</emotion>
+		<mood>He feels safe that he identity will be veryfied</mood>
+	</action>
 	<transition from="id_verification" to="documents"/>
-	<action name="Upload relevant documents" id="documents" image="images/upload.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_upload"/>
+	<action name="Upload relevant documents" id="documents" image="images/upload.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_upload">
+		<gain>Automated veryfied process</gain>
+		<emotion>1</emotion>
+		<mood>He is happy that he doesn't have to visit a branch</mood>
+	</action>
 	<transition from="documents" to="review"/>
 	<decision name="Review the application" id="review" touchpoint="touchpoint_review">
 	</decision>
 	<transition from="review" to="edit"/>
-	<action name="Edit the application" id="edit" image="images/edit-application.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_edit"/>
+	<action name="Edit the application" id="edit" image="images/edit-application.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_edit">
+		<pain>Additional clicks for the user</pain>
+		<opportunity>We can find a way to embed it on other steps</opportunity>
+		<emotion>0</emotion>	
+	</action>
 	<transition from="edit" to="sign"/>
-	<action name="Sign the application" id="sign" image="images/review-sign.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_sign"/>
+	<action name="Sign the application" id="sign" image="images/review-sign.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_sign">
+		<gain>The user can review and edit the application before submission</gain>
+		<emotion>0</emotion>
+		<mood>He feels safe since he can review and edit the application</mood>
+	</action>
 	<transition from="sign" to="submit"/>
 	<transition from="review" to="sign"/>
-	<action name="Submit the application" id="submit" image="images/submitted.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_submit"/>
+	<action name="Submit the application" id="submit" image="images/submitted.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_submit">
+		<gain>Application submitted online</gain>
+		<emotion>1</emotion>
+		<mood>He is happy that it was easy and straighforward</mood>
+	</action>
 	<!--SETUP-->
 	<transition from="submit" to="register_online"/>
 	<decision name="Do you want to register online?" id="register_online" touchpoint="touchpoint_register">
 	</decision>
-	<action name="Log on info" id="logon" image="images/login.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_logon"/>
-	<action name="Security question" id="security_question" image="images/security-question.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_question"/>
+	<action name="Log on info" id="logon" image="images/login.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_logon">
+		<gain>Easy online account setup</gain>
+		<emotion>1</emotion>
+		<comment>Do we have this journey linked to all products?</comment>
+	</action>
+	<action name="Security question" id="security_question" image="images/security-question.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_question">
+		<pain>Is difficult for users to remember security questions</pain>
+		<emotion>-1</emotion>
+		<opportunity>Investigate other security options</opportunity>
+		<mood>Nervous that he has to choose a memorable answer</mood>
+	</action>
 	<transition from="register_online" to="logon" name="Yes" id="t3"/>
 	<transition from="register_online" to="login" name="I am already registered" id="t5"/>
 	<transition from="register_online" to="add" name="No" id="t4"/>
@@ -152,10 +192,17 @@
 	</decision>
 	<transition from="login" to="add" id="t9"/>
 	<transition from="security_question" to="add" id="t11"/>
-	<action name="Select additional product" id="select" image="images/more-products.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_select"/>
+	<action name="Select additional product" id="select" image="images/more-products.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_select">
+		<gain>We offer the option to apply now for the credit card</gain>
+		<emotion>1</emotion>
+		<mood>Positive feelings since he has both applications submitted</mood>
+	</action>
 	<transition from="add" to="select" name="Yes" id="t12"/>
 	<transition from="add" to="completion" name="No" id="t13"/>
-	<action name="Application complete" id="completion" image="images/completed.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_completion"/>
+	<action name="Application complete" id="completion" image="images/completed.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_completion">
+		<emotion>1</emotion>
+		<opportunity>We can maybe link the customer to relevant products</opportunity>
+	</action>
 	<transition from="select" to="completion" id="t12"/>
 	
 	
