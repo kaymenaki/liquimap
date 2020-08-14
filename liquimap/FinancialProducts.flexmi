@@ -105,10 +105,12 @@
 		<emotion>1</emotion>
 		<mood>He is willing to open an account online</mood>
 		<opportunity>Focus on SEO</opportunity>
-		<comment>N/A</comment>
 	</action>
 	<transition from="product_info" to="legal_info"/>
 	<action name="Reads legal information" id="legal_info" image="images/legal-info.png" color="rgb(13, 107, 189)" touchpoint="touchpoint_legal_info">
+		<pain>Too much information</pain>
+		<emotion>0</emotion>
+		<opportunity>Focus on SEO</opportunity>
 	</action>
 	<transition from="legal_info" to="nc_ec"/>
 	<decision name="New or existing customer?" id="nc_ec" touchpoint="nc_ec_touchpoint">
