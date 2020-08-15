@@ -16,7 +16,7 @@ Liquimap is an EMF-based domain-specific language for user experience (UX) mappi
 
 - Double-click on the `FinancialServices.flexmi` file in the `Project Explorer` view to open it. Once the Flexmi file is opened, your Eclipse should look like this
 
-![](/Users/dk135/git/liquimap/doc/eclipse.png)
+![](doc/eclipse.png)
 
 ## Gallery
 
@@ -30,32 +30,32 @@ Below are examples of diagrams produced by Liquimap.
 
 #### Service Blueprint by Participant
 
-![participant-blueprint-liquimap](/Users/dk135/git/liquimap/doc/participant-blueprint-liquimap.png)
+![participant-blueprint-liquimap](doc/participant-blueprint-liquimap.png)
 
 #### Service Blueprint by Stage
 
-![stage-blueprint-liquimap](/Users/dk135/git/liquimap/doc/stage-blueprint-liquimap.png)
+![stage-blueprint-liquimap](doc/stage-blueprint-liquimap.png)
 
 ### User Experience Flow Diagrams
 
 #### Global User Experience Flow Diagram
 
-![userflow-liquimap](/Users/dk135/git/liquimap/doc/userflow-liquimap.png)
+![userflow-liquimap](doc/userflow-liquimap.png)
 
 #### User Experience Flow Diagram by Stage
 
-![stage-userflow-liquimap](/Users/dk135/git/liquimap/doc/stage-userflow-liquimap.png)
+![stage-userflow-liquimap](doc/stage-userflow-liquimap.png)
 
 ### User Journey diagrams
 
 #### End-to-end User Journey Diagram
 
-![userjourney-liquimap](/Users/dk135/git/liquimap/doc/userjourney-liquimap.png)
+![userjourney-liquimap](doc/userjourney-liquimap.png)
 
 #### User Journey Diagram by Stage
 
-![stage-userjourney-liquimap](/Users/dk135/git/liquimap/doc/stage-userjourney-liquimap.png)
+![stage-userjourney-liquimap](doc/stage-userjourney-liquimap.png)
 
 ### Sankey Diagram
 
-![](/Users/dk135/git/liquimap/doc/sankey-liquimap.png)
+![](doc/sankey-liquimap.png)
