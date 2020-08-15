@@ -26,7 +26,7 @@ Below are examples of diagrams produced by Liquimap.
 
 #### Global Service Blueprint
 
-![participant-blueprint-liquimap](/Users/dk135/git/liquimap/doc/blueprint-liquimap.png)
+![participant-blueprint-liquimap](doc/blueprint-liquimap.png)
 
 #### Service Blueprint by Participant
 
