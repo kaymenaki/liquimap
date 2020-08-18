@@ -53,6 +53,9 @@
 		<step name="Post">
 			<touchpoint name="Receive supporting material" participants="marketing, product, customer, service" id="touchpoint_completion"/>
 		</step>
+		<!--<step name="Survey">
+			<touchpoint name="Run customer survey" participants="marketing, product, customer, service" id="touchpoint_survey"/>
+		</step>-->
 	</stage>
 	
 	<!--User flow-->
@@ -204,7 +207,9 @@
 		<opportunity>We can maybe link the customer to relevant products</opportunity>
 	</action>
 	<transition from="select" to="completion" id="t12"/>
-	
+	<!--<transition from="completion" to="survey" id="t14"/>
+	<action name="Run a customer survey" id="survey" image="images/completed.png" touchpoint="touchpoint_survey">
+	</action>-->
 	
 <!--Journey map -->
 	<journey name="NC-BA-RO-BP" choices="t1, t3, t12" persona="john-doe"
