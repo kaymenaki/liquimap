@@ -1,7 +1,8 @@
 [%import 'liquimap.eol';%]
 <html>
 <head>
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<meta charset="UTF-8"/>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'/>
 <link rel="stylesheet" href="file:[%=getImage("liquimap.css") + "?" + 1.to(10000).random()%]"/>
 <link rel="stylesheet" href="file:[%=getImage(uem.theme+".css") + "?" + 1.to(10000).random()%]"/>
 </head>
@@ -13,7 +14,7 @@
 	
 	[%if (journey.persona.asVar("persona").isDefined()){%]
 	<tr>
-		<td class="header" ><img style="width:100%" src="[%=getImage(persona.photo)%]"></img></td>
+		<td class="header" style="text-align:center;"><img style="width:100px" src="[%=getImage(persona.photo)%]"></img></td>
 		<td colspan="2"> <b>[%=persona.name%], [%=persona.age%], [%=persona.occupation%]</b> <p>[%=persona.profile%]</p> </td>
 	</tr>
 	[%}%]
@@ -32,7 +33,7 @@
 	<tr>
 		<td> </td>
 		[%for (action in actions) { %]
-			<td class="action"><img src="[%=action.image.isDefined() ? getImage(action.image) : ''%]" style="width:200px"></td>
+			<td class="action"><img src="[%=action.image.isDefined() ? getImage(action.image) : ''%]" style="width:200px"></img></td>
 		[%}%]
 	</tr>
 	
@@ -46,44 +47,39 @@
 	<tr>
 		<td class="header">Emotion</td>
 		[%for (action in actions) { %]
-			<td class="action" style="[%=action.getStyle()%]">[%=action.emotion%]</td>
+			<td class="action emotion" style="[%=action.getStyle()%]">[%=action.getEmoji()%]</td>
 		[%}%]
 	</tr>
 	
 	<tr>
-		<td class="header">Pains and Gains</td>
+		<td class="header">Pains</td>
 		[%for (action in actions) { %]
 			<td class="action" style="[%=action.getStyle()%]">
-			[%if (not action.pains.isEmpty()){%]
-			<b>Pains</b>
-			<ul>
-				[%for (pain in action.pains){%]
-				<li>[%=pain%]</li>
-				[%}%]
-			</ul>
-			[%}%]
-			
-			[%if (not action.gains.isEmpty()){%]
-			<b>Gains</b>
-			<ul>
-				[%for (gain in action.gains){%]
-				<li>[%=gain%]</li>
-				[%}%]
-			</ul>
+			[%for (pain in action.pains){%]
+			[%=pain%]<br/>
 			[%}%]
 			</td>
 		[%}%]
 	</tr>
-	
+
+	<tr>
+		<td class="header">Gains</td>
+		[%for (action in actions) { %]
+			<td class="action" style="[%=action.getStyle()%]">
+			[%for (gain in action.gains){%]
+			[%=gain%]<br/>
+			[%}%]
+			</td>
+		[%}%]
+	</tr>
+		
 	<tr>
 		<td class="header">Opportunities</td>
 		[%for (action in actions) { %]
 			<td class="action" style="[%=action.getStyle()%]">
-			<ul>
-				[%for (opportunity in action.opportunities){%]
-				<li>[%=opportunity%]</li>
-				[%}%]
-			</ul>
+			[%for (opportunity in action.opportunities){%]
+			[%=opportunity%]<br/>
+			[%}%]
 			</td>
 		[%}%]
 	</tr>
@@ -131,6 +127,16 @@ operation UserJourney getActions(stage: Stage) {
 	if (stage.isDefined()) actions = actions.select(a|stage.owns(a));
 	
 	return actions;
+}
+
+operation Action getEmoji() {
+	if (self.emotion = 0) {
+		return "😐";
+	}
+	else if (self.emotion = 1) {
+		return '<span style="position:relative;top:-15px">😃</span>';
+	}
+	else return '<span style="position:relative;top:15px">😞</span>';
 }
 
 operation Stage owns(action : Action) {
