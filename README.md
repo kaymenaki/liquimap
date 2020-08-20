@@ -8,6 +8,8 @@ Liquimap is an EMF-based domain-specific language for user experience (UX) mappi
 
 - Install the Epsilon Eclipse distribution, following the instructions in https://www.eclipse.org/epsilon/download/
 
+- Install Graphviz from http://graphviz.org/download/
+
 - Clone this repository and import the `liquimap` Eclipse project, as instructed in section 9.2 of https://www.vogella.com/tutorials/Eclipse/article.html
 
 - In the `Project Explorer` view of Eclipse, locate and right-click on the `liquimap.emf` file and click `Register EPackages`
